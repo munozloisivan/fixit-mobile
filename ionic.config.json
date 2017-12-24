@@ -1,0 +1,8 @@
+{
+  "name": "fixit-mobile",
+  "app_id": "cf08b03b",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
