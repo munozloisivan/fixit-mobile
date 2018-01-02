@@ -4,7 +4,9 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
-
+import {PerfilPage} from "../pages/perfil/perfil";
+import {MapaPage} from "../pages/mapa/mapa";
+import {AvisosPage} from "../pages/avisos/avisos";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { UsuarioProvider } from '../providers/usuario/usuario';
@@ -17,7 +19,10 @@ import { LogroProvider } from '../providers/logro/logro';
 @NgModule({
   declarations: [
     MyApp,
-    TabsPage
+    TabsPage,
+    AvisosPage,
+    MapaPage,
+    PerfilPage
   ],
   imports: [
     BrowserModule,
@@ -26,7 +31,10 @@ import { LogroProvider } from '../providers/logro/logro';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    TabsPage
+    TabsPage,
+    AvisosPage,
+    MapaPage,
+    PerfilPage
   ],
   providers: [
     StatusBar,
