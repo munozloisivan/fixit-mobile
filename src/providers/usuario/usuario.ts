@@ -1,6 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {RequestOptions} from "@angular/http";
+import {Observable} from "rxjs/Observable";
+import { Http, Headers, Response } from '@angular/http';
 
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/catch';
 /*
   Generated class for the UsuarioProvider provider.
 
@@ -10,8 +16,30 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UsuarioProvider {
 
+  private apiUrl = 'http://147.83.7.158:80/usuario/';
+
   constructor(public http: HttpClient) {
     console.log('Hello UsuarioProvider Provider');
   }
+
+  loginXXX(data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl +'auth', data)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  login(user): Observable<Response> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(this.apiUrl + 'auth', user)
+      .map((res: Response) => res.json()) // ...and calling .json() on the response to return data
+      .catch((error: any) => Observable.throw(error.json().error || 'Error del servidor'));
+  }
+
 
 }

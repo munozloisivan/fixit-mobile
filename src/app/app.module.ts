@@ -19,6 +19,9 @@ import { CategoriaProvider } from '../providers/categoria/categoria';
 import { ContactoProvider } from '../providers/contacto/contacto';
 import { AvisoProvider } from '../providers/aviso/aviso';
 import { LogroProvider } from '../providers/logro/logro';
+import {HttpClientModule} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
+import {HttpModule} from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -33,7 +36,12 @@ import { LogroProvider } from '../providers/logro/logro';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    HttpClientModule,
+    FormsModule,
+    HttpModule,
+    IonicModule.forRoot(MyApp, {  scrollPadding: false,
+      scrollAssist: true,
+      autoFocusAssist: false})
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,7 +63,11 @@ import { LogroProvider } from '../providers/logro/logro';
     CategoriaProvider,
     ContactoProvider,
     AvisoProvider,
-    LogroProvider
+    LogroProvider,
+    BrowserModule,
+    HttpClientModule,
+    HttpModule,
+    FormsModule
   ]
 })
 export class AppModule {}

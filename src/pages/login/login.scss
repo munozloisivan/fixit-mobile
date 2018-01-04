@@ -10,10 +10,8 @@ page-login {
   .splash-bg {
      position: relative;
      background: url('../../assets/imgs/home.png') no-repeat transparent;
-     background-size: cover;
      height: 100%;
      z-index: -1;
-     background-repeat: repeat-x;
      animation: animatedBackground 40s linear infinite;
    }
 

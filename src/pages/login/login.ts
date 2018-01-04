@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {IonicPage, Keyboard, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {UsuarioProvider} from "../../providers/usuario/usuario";
 
 /**
  * Generated class for the LoginPage page.
@@ -15,12 +16,27 @@ import {IonicPage, Keyboard, NavController, NavParams} from 'ionic-angular';
 })
 export class LoginPage {
 
-  usuario = { };
-  constructor(public navCtrl: NavController, public navParams: NavParams, private keyboard: Keyboard) {
+  email: string;
+  password: string;
+  public data: {};
+  public identity: {};
+  public status: string;
+  public token;
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public usuarioRest: UsuarioProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
+  loginUsuario() {
+    this.usuarioRest.login({email: this.email, password: this.password}).subscribe((res) => {
+      console.log('okei');
+    }, (err) => {
+      console.log(err);
+    })
+
+  }
 }
