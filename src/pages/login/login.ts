@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UsuarioProvider} from "../../providers/usuario/usuario";
+import {TabsPage} from "../tabs/tabs";
 
 /**
  * Generated class for the LoginPage page.
@@ -22,7 +23,7 @@ export class LoginPage {
   public identity: {};
   public status: string;
   public token;
-
+  usuario = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public usuarioRest: UsuarioProvider) {
   }
@@ -32,11 +33,12 @@ export class LoginPage {
   }
 
   loginUsuario() {
-    this.usuarioRest.login({email: this.email, password: this.password}).subscribe((res) => {
-      console.log('okei');
-    }, (err) => {
-      console.log(err);
-    })
-
+    this.usuarioRest.loginXXX({email: this.email, password: this.password})
+      .then((res) => {
+          //this.navCtrl.push(TabsPage);
+          console.log('okei');
+          }, (err) => {
+            console.log(err);
+          })
   }
 }

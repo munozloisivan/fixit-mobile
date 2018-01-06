@@ -33,13 +33,6 @@ export class UsuarioProvider {
     });
   }
 
-  login(user): Observable<Response> {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
-    return this.http.post(this.apiUrl + 'auth', user)
-      .map((res: Response) => res.json()) // ...and calling .json() on the response to return data
-      .catch((error: any) => Observable.throw(error.json().error || 'Error del servidor'));
-  }
 
 
 }
