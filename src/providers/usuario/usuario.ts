@@ -1,8 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {RequestOptions} from "@angular/http";
-import {Observable} from "rxjs/Observable";
-import { Http, Headers, Response } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';

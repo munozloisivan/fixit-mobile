@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {UsuarioProvider} from "../../providers/usuario/usuario";
 import {TabsPage} from "../tabs/tabs";
 
@@ -25,7 +25,10 @@ export class LoginPage {
   public token;
   usuario = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public usuarioRest: UsuarioProvider) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public usuarioRest: UsuarioProvider,
+              private toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {
@@ -35,10 +38,54 @@ export class LoginPage {
   loginUsuario() {
     this.usuarioRest.loginXXX({email: this.email, password: this.password})
       .then((res) => {
+          console.log("Resultado" + JSON.stringify(res));
+        this.status = 'success';
+        localStorage.setItem('token', JSON.stringify(res['token']));
+        localStorage.setItem('identity', JSON.stringify(res['user']));
+        localStorage.setItem('role', JSON.stringify(res['role']));
+
+          this.okToast('Identificación correcta');
           //this.navCtrl.push(TabsPage);
+        setTimeout(() => {
+          this.navCtrl.push(TabsPage);
+        }, 1500);
           console.log('okei');
           }, (err) => {
+            this.status = 'error';
+            this.failToast('Error al iniciar sesión. Pruebe otra vez');
             console.log(err);
           })
   }
+
+  okToast(mensaje) {
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 1000,
+      position: 'bottom',
+      cssClass: "toast-success",
+      dismissOnPageChange: false
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
+  failToast(mensaje) {
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 2500,
+      position: 'bottom',
+      dismissOnPageChange: true
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
 }
