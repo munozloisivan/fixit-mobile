@@ -30,6 +30,18 @@ export class UsuarioProvider {
     });
   }
 
+  saveUsuario(data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl +'add', data)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+
 
 
 }

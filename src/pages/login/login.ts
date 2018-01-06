@@ -24,11 +24,14 @@ export class LoginPage {
   public status: string;
   public token;
   usuario = {};
+  private EmailUser: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public usuarioRest: UsuarioProvider,
               private toastCtrl: ToastController) {
+
+    this.email = navParams.get("EmailUser");
   }
 
   ionViewDidLoad() {
