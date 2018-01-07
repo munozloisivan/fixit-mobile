@@ -31,6 +31,10 @@ export class RegistroPage {
     console.log('ionViewDidLoad RegistroPage');
   }
 
+  goback() {
+    this.navCtrl.pop();
+  }
+
   Register() {
     this.usuarioRest.saveUsuario({email: this.email, password: this.password}).then(
       (data) => {

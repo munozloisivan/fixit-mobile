@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {UsuarioProvider} from "../../providers/usuario/usuario";
 import {TabsPage} from "../tabs/tabs";
+import {LoadingController } from "ionic-angular";
 
 /**
  * Generated class for the LoginPage page.
@@ -29,13 +30,18 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public usuarioRest: UsuarioProvider,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController,
+              public loadingCtrl: LoadingController) {
 
     this.email = navParams.get("EmailUser");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+  }
+
+  goback() {
+    this.navCtrl.pop();
   }
 
   loginUsuario() {
@@ -48,6 +54,7 @@ export class LoginPage {
         localStorage.setItem('role', JSON.stringify(res['role']));
 
           this.okToast('Identificación correcta');
+          this.presentLoading();
           //this.navCtrl.push(TabsPage);
         setTimeout(() => {
           this.navCtrl.push(TabsPage);
@@ -89,6 +96,14 @@ export class LoginPage {
     });
 
     toast.present();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Iniciando sesión",
+      duration: 2000
+    });
+    loader.present();
   }
 
 }

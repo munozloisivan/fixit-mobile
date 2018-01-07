@@ -7,7 +7,7 @@
 <ion-content scroll="false">
   <div class="splash-bg"></div>
   <div class="splash-info">
-    <div class="splash-logo"></div>
+    <div class="splash-logo" (click)="goback()"></div>
   </div>
   <div class="texto-welcome">Introduce un email y contraseña para poder empezar</div>
   <div padding>
@@ -20,7 +20,7 @@
       </div>
       <div padding-top>
         <ion-item>
-          <ion-label>Password</ion-label>
+          <ion-label>Contraseña</ion-label>
           <ion-input type="password" required [(ngModel)]="password" name="password" aria-required="true"></ion-input>
         </ion-item>
       </div>
