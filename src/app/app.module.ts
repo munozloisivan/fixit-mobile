@@ -10,6 +10,7 @@ import {AvisosPage} from "../pages/avisos/avisos";
 import { WelcomePage } from "../pages/welcome/welcome";
 import { LoginPage } from "../pages/login/login";
 import { RegistroPage } from "../pages/registro/registro";
+import { EditPerfilPage} from "../pages/edit-perfil/edit-perfil";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,7 +33,8 @@ import {HttpModule} from "@angular/http";
     PerfilPage,
     WelcomePage,
     RegistroPage,
-    LoginPage
+    LoginPage,
+    EditPerfilPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import {HttpModule} from "@angular/http";
     PerfilPage,
     WelcomePage,
     RegistroPage,
-    LoginPage
+    LoginPage,
+    EditPerfilPage
   ],
   providers: [
     StatusBar,

@@ -1,0 +1,58 @@
+<!--
+  Generated template for the EditPerfilPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>EditPerfil</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form (ngSubmit)="updateUser()" #editForm="ngForm">
+    <ion-item>
+      <ion-label>Nombre</ion-label>
+      <ion-input type="text" required [(ngModel)]="nombre" name="Nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Apellidos</ion-label>
+      <ion-input type="text" required [(ngModel)]="apellidos" name="Apellidos"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>DNI</ion-label>
+      <ion-input type="text" required [(ngModel)]="dni" name="DNI"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input type="text" required [(ngModel)]="email" name="Email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Teléfono</ion-label>
+      <ion-input type="text" required [(ngModel)]="telefono" name="Teléfono"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Código Postal</ion-label>
+      <ion-input type="text" required [(ngModel)]="codigoPostal" name="CodigoPostal"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Alias</ion-label>
+      <ion-input type="text" required [(ngModel)]="alias" name="Alias"></ion-input>
+    </ion-item>
+    <div padding>
+      <button ion-button round type="submit" [disabled]="!editForm.form.valid">Guardar Cambios</button>
+    </div>
+   <!-- <ion-item>
+      <ion-label>Titulo Activo</ion-label>
+      <ion-select type="text"  required [(ngModel)]="cuatrimestreFilter" name="titulacionFilter">
+        <ion-option *ngFor="let n of subjects" value={{n.cuatrimestre}}>{{n.cuatrimestre}}</ion-option>
+      </ion-select>
+    </ion-item>-->
+  </form>
+
+</ion-content>

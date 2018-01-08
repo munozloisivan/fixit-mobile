@@ -47,7 +47,7 @@ export class LoginPage {
   loginUsuario() {
     this.usuarioRest.loginXXX({email: this.email, password: this.password})
       .then((res) => {
-          console.log("Resultado" + JSON.stringify(res));
+        //console.log("Resultado" + JSON.stringify(res));
         this.status = 'success';
         localStorage.setItem('token', JSON.stringify(res['token']));
         localStorage.setItem('identity', JSON.stringify(res['user']));

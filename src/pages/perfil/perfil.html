@@ -1,31 +1,12 @@
-<!--
-  Generated template for the PerfilPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<!--<ion-header>
-
-  <ion-navbar>
-    <ion-title>perfil</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
-</ion-content>-->
-
 <ion-content>
 
   <ion-card>
     <ion-card-header>
       <ion-col>
-        Perfil de nombre
+        Perfil de {{alias}}
       </ion-col>
-      <ion-col offset-3>
-        <button ion-button round outline>
+      <ion-col>
+        <button ion-button round outline (click)="goEditPerfil()">
           <ion-icon name="settings"></ion-icon>
         </button>
       </ion-col>
@@ -35,18 +16,19 @@
         <!--<img [src]="item.user.avatar">-->
         <img src="assets/imgs/logo.png"/>
       </ion-avatar>
-      <h3>Alias: </h3>
+      <h3>Alias: {{alias}}</h3>
       <p>titulo activo</p>
     </ion-item>
 
     <!--<img [src]="">-->
 
     <ion-card-content>
-      <p>Nombre y apellidos</p>
-      <p>DNI</p>
-      <p>telefono</p>
-      <p>codigo postal</p>
-      <p>Puntos</p>
+      <p><b>Nombre y apellidos:</b>{{nombre}} {{apellidos}}</p>
+      <p><b>DNI:</b>{{dni}}</p>
+      <p><b>Email:</b>{{email}}</p>
+      <p><b>Teléfono:</b>{{telefono}}</p>
+      <p><b>Código postal:</b>{{codigoPostal}}</p>
+      <p><b>Puntos:</b>{{puntos}}</p>
     </ion-card-content>
 
     <ion-row>

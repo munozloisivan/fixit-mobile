@@ -41,6 +41,28 @@ export class UsuarioProvider {
     });
   }
 
+  showUsuario(id) {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiUrl + id)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  updateUsuario(id, data) {
+    return new Promise((resolve, reject) => {
+      this.http.put(this.apiUrl + id, data)
+        .map(res => res)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 
 
 
