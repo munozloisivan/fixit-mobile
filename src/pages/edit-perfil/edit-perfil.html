@@ -34,15 +34,15 @@
     </ion-item>
     <ion-item>
       <ion-label>Teléfono</ion-label>
-      <ion-input type="text" required [(ngModel)]="telefono" name="Teléfono"></ion-input>
+      <ion-input type="text" [(ngModel)]="telefono" name="Teléfono"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Código Postal</ion-label>
-      <ion-input type="text" required [(ngModel)]="codigoPostal" name="CodigoPostal"></ion-input>
+      <ion-input type="text" [(ngModel)]="codigoPostal" name="CodigoPostal"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Alias</ion-label>
-      <ion-input type="text" required [(ngModel)]="alias" name="Alias"></ion-input>
+      <ion-input type="text" [(ngModel)]="alias" name="Alias"></ion-input>
     </ion-item>
     <div padding>
       <button ion-button round type="submit" [disabled]="!editForm.form.valid">Guardar Cambios</button>

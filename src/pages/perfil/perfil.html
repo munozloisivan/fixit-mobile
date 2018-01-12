@@ -16,19 +16,19 @@
         <!--<img [src]="item.user.avatar">-->
         <img src="assets/imgs/logo.png"/>
       </ion-avatar>
-      <h3>Alias: {{alias}}</h3>
+      <h3><b>Alias:</b> {{alias}}</h3>
       <p>titulo activo</p>
     </ion-item>
 
     <!--<img [src]="">-->
 
     <ion-card-content>
-      <p><b>Nombre y apellidos:</b>{{nombre}} {{apellidos}}</p>
-      <p><b>DNI:</b>{{dni}}</p>
-      <p><b>Email:</b>{{email}}</p>
-      <p><b>Teléfono:</b>{{telefono}}</p>
-      <p><b>Código postal:</b>{{codigoPostal}}</p>
-      <p><b>Puntos:</b>{{puntos}}</p>
+      <p><b>Nombre y apellidos:</b>  {{nombre}} {{apellidos}}</p>
+      <p><b>DNI:</b>  {{dni}}</p>
+      <p><b>Email:</b>  {{email}}</p>
+      <p><b>Teléfono:</b> {{telefono}}</p>
+      <p><b>Código postal:</b>  {{codigoPostal}}</p>
+      <p><b>Puntos:</b> {{puntos}}</p>
     </ion-card-content>
 
     <ion-row>
@@ -43,7 +43,7 @@
         </button>
         <button ion-button color="primary" clear small icon-start>
           <ion-icon name='thumbs-up'></ion-icon>
-          nº Participantes
+          {{participantes}} Participantes
         </button>
         <button ion-button color="primary" clear small icon-start>
           <ion-icon name='ribbon'></ion-icon>
