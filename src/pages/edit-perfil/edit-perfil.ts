@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {UsuarioProvider} from "../../providers/usuario/usuario";
+import {WelcomePage} from "../welcome/welcome";
 
 /**
  * Generated class for the EditPerfilPage page.
@@ -30,7 +31,8 @@ export class EditPerfilPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private usuarioRest: UsuarioProvider,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController,
+              private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -79,6 +81,41 @@ export class EditPerfilPage {
         this.failToast('Error, prueba de nuevo');
       });
   }
+
+  deleteUsuario() {
+    let alert = this.alertCtrl.create({
+      title: 'Eliminar cuenta',
+      message:  '¿Estas seguro que deseas eliminar tu cuenta?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+            this.navCtrl.pop();
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            console.log('Confirm clicked');
+            this.usuarioRest.deleteUsuario(this.identity['_id']).then((res) => {
+              this.okToast('Cuenta eliminada');
+              setTimeout(() => {
+                this.navCtrl.setRoot(WelcomePage);
+                this.navCtrl.popToRoot();
+              }, 1500);
+            }, (err) => {
+              this.failToast('Error, prueba de nuevo');
+              console.log(err);
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
   okToast(mensaje) {
     let toast = this.toastCtrl.create({
       message: mensaje,

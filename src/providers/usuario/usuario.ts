@@ -64,6 +64,16 @@ export class UsuarioProvider {
     });
   }
 
+  deleteUsuario(id) {
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.apiUrl + id)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 
 
 }

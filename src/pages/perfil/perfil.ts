@@ -131,21 +131,22 @@ export class PerfilPage {
       }
     }
 
-
-      if (!this.camposOptativos) {
+    if (!this.camposObligatorios && !this.camposOptativos) {
+      this.msg = '<p>Para poder utilizar todas las funcionalidades debes completar todos tus datos personales</p> ' +
+        '<p><b>Campos obligatorios: </b></p>' + this.camposObligatorios +
+        '<p><b>Campos optativos: </b></p>' + this.camposOptativos;
+    }
+    else if (!this.camposObligatorios) {
+      this.msg = '<p>Para poder utilizar todas las funcionalidades debes completar todos tus datos personales</p> ' +
+        '<p><b>Campos optativos: </b></p>' + this.camposOptativos;
+    }
+    else if (!this.camposOptativos) {
           this.msg = '<p>Para poder utilizar todas las funcionalidades debes completar todos tus datos personales</p> ' +
                      '<p><b>Campos obligatorios: </b></p>' + this.camposObligatorios;
       }
-      if (!this.camposObligatorios) {
-          this.msg = '<p>Para poder utilizar todas las funcionalidades debes completar todos tus datos personales</p> ' +
-                     '<p><b>Campos optativos: </b></p>' + this.camposOptativos;
-      }
 
-      if (!this.camposObligatorios && !this.camposOptativos) {
-         this.msg = '<p>Para poder utilizar todas las funcionalidades debes completar todos tus datos personales</p> ' +
-         '<p><b>Campos obligatorios: </b></p>' + this.camposObligatorios +
-         '<p><b>Campos optativos: </b></p>' + this.camposOptativos;
-      }
+
+
 
 
     let alert = this.alertCtrl.create({

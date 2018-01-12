@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
 import {LoginPage} from "../login/login";
 
@@ -24,7 +24,8 @@ export class RegistroPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private usuarioRest: UsuarioProvider,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController,
+              public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -40,6 +41,7 @@ export class RegistroPage {
       (data) => {
         this.status = 'success';
         this.okToast('Registro correcto');
+        this.Loading();
         setTimeout(() => {
           this.navCtrl.push(LoginPage, {EmailUser: this.email});
         }, 1500);
@@ -83,5 +85,12 @@ export class RegistroPage {
     toast.present();
   }
 
+  Loading() {
+    let loader = this.loadingCtrl.create({
+      content: "Cargando Inicio",
+      duration: 1500
+    });
+    loader.present();
+  }
 
 }
