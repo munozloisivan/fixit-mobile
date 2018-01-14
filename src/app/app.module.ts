@@ -24,6 +24,9 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 
+import { GoogleMaps} from "@ionic-native/google-maps";
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -60,6 +63,7 @@ import {HttpModule} from "@angular/http";
   providers: [
     StatusBar,
     SplashScreen,
+    GoogleMaps,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UsuarioProvider,
     GestorProvider,

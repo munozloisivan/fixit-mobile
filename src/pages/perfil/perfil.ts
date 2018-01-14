@@ -43,6 +43,7 @@ export class PerfilPage {
   avisoscreados: any;
   camposObligatorios: string;
   camposOptativos: string;
+  imagen: string;
   msg : string;
 
   constructor(public navCtrl: NavController,
@@ -84,6 +85,8 @@ export class PerfilPage {
       this.puntos = res['puntos'];
       this.participantes = res['participantes'];
       this.avisoscreados = this.identity['avisos']['creados'];
+      this.imagen = this.identity['imagen'];
+      console.log('imagen : ' + this.imagen);
       console.log('iepa tu' + this.avisoscreados);
       //console.log('avisos creados' + this.avisoscreados['creados']);
       //this.usuario = res;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {UsuarioProvider} from "../../providers/usuario/usuario";
 import {WelcomePage} from "../welcome/welcome";
 
@@ -32,7 +32,8 @@ export class EditPerfilPage {
               public navParams: NavParams,
               private usuarioRest: UsuarioProvider,
               private toastCtrl: ToastController,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              public loadingCtrl: LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -100,11 +101,12 @@ export class EditPerfilPage {
           handler: () => {
             console.log('Confirm clicked');
             this.usuarioRest.deleteUsuario(this.identity['_id']).then((res) => {
-              this.okToast('Cuenta eliminada');
+              this.presentLoading();
               setTimeout(() => {
+                this.okToast('Cuenta eliminada');
                 this.navCtrl.setRoot(WelcomePage);
                 this.navCtrl.popToRoot();
-              }, 1500);
+              }, 2000);
             }, (err) => {
               this.failToast('Error, prueba de nuevo');
               console.log(err);
@@ -145,6 +147,14 @@ export class EditPerfilPage {
     });
 
     toast.present();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Borrando datos de la cuenta",
+      duration: 1900
+    });
+    loader.present();
   }
 
 }

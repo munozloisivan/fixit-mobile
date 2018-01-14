@@ -45,7 +45,7 @@
       <ion-input type="text" [(ngModel)]="alias" name="Alias"></ion-input>
     </ion-item>
     <div padding>
-      <button ion-button round type="submit" [disabled]="!editForm.form.valid">Guardar Cambios</button>
+      <button ion-button round type="submit" class="button-form" [disabled]="!editForm.form.valid">Guardar Cambios</button>
     </div>
    <!-- <ion-item>
       <ion-label>Titulo Activo</ion-label>
@@ -54,8 +54,8 @@
       </ion-select>
     </ion-item>-->
   </form>
-  <div padding>
-    <button ion-button round color="danger" (click)="deleteUsuario()">Eliminar cuenta</button>
+  <div>
+    <button ion-button round color="danger" class="btn-delete" (click)="deleteUsuario()">Eliminar cuenta</button>
   </div>
 
 </ion-content>
