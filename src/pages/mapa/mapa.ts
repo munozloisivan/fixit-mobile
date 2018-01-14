@@ -28,7 +28,7 @@ export class MapaPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public geolocation: Geolocation,
+              // public geolocation: Geolocation,
               private googleMaps: GoogleMaps) {
   }
 
