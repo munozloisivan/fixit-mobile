@@ -7,8 +7,10 @@ import {
   GoogleMapOptions,
   CameraPosition,
   MarkerOptions,
-  Marker
+  Marker,
+  LatLng
 } from '@ionic-native/google-maps';
+import { Geolocation } from "@ionic-native/geolocation";
 
 /**
  * Generated class for the MapaPage page.
@@ -25,10 +27,25 @@ import {
 export class MapaPage {
 
   map: GoogleMap;
+  markers: any[] = [
+    {
+      position:{
+        latitude: 41.417800,
+        longitude: 1.819007,
+      },
+      title:'Ivansito'
+    },
+    {
+      position:{
+        latitude: 41.422009,
+        longitude: 1.8330286,
+      },
+      title:'Killerface'
+    }];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              // public geolocation: Geolocation,
+              private geolocation: Geolocation,
               private googleMaps: GoogleMaps) {
   }
 
@@ -54,12 +71,34 @@ export class MapaPage {
     // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
+      console.log('map ready!');
         // Now you can use all methods safely.
         this.getPosition();
+        /*this.map.addMarker({
+          title: 'Ionic',
+          icon: 'blue',
+          animation: 'DROP',
+          position: {
+            lat: 43.0741904,
+            lng: -89.3809802
+          }
+        })
+          .then(marker => {
+            marker.on(GoogleMapsEvent.MARKER_CLICK)
+              .subscribe(() => {
+                alert('clicked');
+              });
+          });*/
+        this.markers.forEach(marker=>{
+          this.addMarker(marker);
+        });
       })
       .catch(error =>{
         console.log(error);
       });
+
+    //Para los demás markers
+
 
   }
 
@@ -80,5 +119,14 @@ export class MapaPage {
         console.log(error);
       });
   }
+
+  addMarker(options){
+    let markerOptions: MarkerOptions = {
+      position: new LatLng(options.position.latitude, options.position.longitude),
+      title: options.title
+    };
+    this.map.addMarker(markerOptions);
+  }
+
 
 }

@@ -44,6 +44,7 @@ export class UsuarioProvider {
   showUsuario(id) {
     return new Promise((resolve, reject) => {
       this.http.get(this.apiUrl + id)
+        .map(res => res)
         .subscribe(res => {
           resolve(res);
         }, (err) => {

@@ -19,37 +19,18 @@ import {EditPerfilPage} from "../edit-perfil/edit-perfil";
 })
 export class PerfilPage {
 
-  usuario: {
-    /*email: string,
-        nombre: string,
-        apellidos: string,
-        alias: string,
-        dni: string,
-        telefono: string,
-        codigoPostal: string,
-        puntos: number,
-        participantes: number*/
-  };
+  usuario: any;
   identity: {};
-  email: string;
-  nombre: string;
-  apellidos: string;
-  alias: string;
-  dni: string;
-  telefono: string;
-  codigoPostal: string;
-  puntos: number;
-  participantes: number;
-  avisoscreados: any;
   camposObligatorios: string;
   camposOptativos: string;
-  imagen: string;
   msg : string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private usuarioRest: UsuarioProvider,
               private alertCtrl: AlertController) {
+
+    this.usuario = {}
 
   }
 
@@ -59,7 +40,7 @@ export class PerfilPage {
     console.log(this.identity['_id']);
     this.getUsuarioDetails();
 
-    if (!this.identity['nombre'] || !this.identity['apellidos'] || !this.identity['dni'] ||  !this.identity['alias'] || !this.identity['telefono'] || !this.identity['codigoPostal']) {
+    if (!this.usuario.nombre || !this.usuario.apellidos || !this.usuario.dni ||  !this.usuario.alias || !this.usuario.telefono || !this.usuario.codigoPostal) {
       console.log('necesario completar perfil');
       this.presentConfirm();
     }
@@ -72,27 +53,9 @@ export class PerfilPage {
 
   getUsuarioDetails() {
     this.usuarioRest.showUsuario(this.identity['_id']).then((res) => {
-      console.log('Usuario:' + JSON.stringify(res));
-      console.log('res a pelo: ' + res);
-      console.log('jsno array: ');
-      this.email = res['email'];
-      this.nombre = res['nombre'];
-      this.apellidos = res['apellidos'];
-      this.alias = res['alias'];
-      this.dni = res['dni'];
-      this.telefono = res['telefono'];
-      this.codigoPostal = res['codigoPostal'];
-      this.puntos = res['puntos'];
-      this.participantes = res['participantes'];
-      this.avisoscreados = this.identity['avisos']['creados'];
-      this.imagen = this.identity['imagen'];
-      console.log('imagen : ' + this.imagen);
-      console.log('iepa tu' + this.avisoscreados);
-      //console.log('avisos creados' + this.avisoscreados['creados']);
-      //this.usuario = res;
-      //console.log('this.ususario = res' + this.usuario);
-      //this.usuario.email = res['email'];
-      //console.log('email'  + this.usuario.email);
+      //console.log('Usuario:' + JSON.stringify(res));
+      //console.log('res a pelo: ' + res);
+      this.usuario = res;
     }, (err) => {
       console.log(err);
     });
@@ -103,12 +66,12 @@ export class PerfilPage {
   }
 
   presentConfirm() {
-    let nombre = this.identity['nombre'];
-    let apellidos = this.identity['apellidos'];
-    let dni = this.identity['dni'];
-    let telefono = this.identity['telefono'];
-    let codigoPostal = this.identity['codigoPostal'];
-    let alias = this.identity['alias'];
+    let nombre = this.usuario.nombre;
+    let apellidos = this.usuario.apellidos;
+    let dni = this.usuario.dni;
+    let telefono = this.usuario.telefono;
+    let codigoPostal = this.usuario.codigoPostal;
+    let alias = this.usuario.alias;
 
 
     if (!nombre || !apellidos || !dni) {
@@ -147,9 +110,6 @@ export class PerfilPage {
           this.msg = '<p>Para poder utilizar todas las funcionalidades debes completar todos tus datos personales</p> ' +
                      '<p><b>Campos obligatorios: </b></p>' + this.camposObligatorios;
       }
-
-
-
 
 
     let alert = this.alertCtrl.create({

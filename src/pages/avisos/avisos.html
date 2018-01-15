@@ -20,27 +20,33 @@
 <ion-content>
   <!-- Segment buttons with text -->
   <ion-segment [(ngModel)]="relationship" color="primary">
-    <ion-segment-button value="creados" (ionSelect)="selectedFriends()">
+    <ion-segment-button (click)="selectedCreados()">
       <ion-icon name='build'></ion-icon>
       Creados
     </ion-segment-button>
-    <ion-segment-button value="apoyados" (ionSelect)="selectedEnemies()">
+    <ion-segment-button (click)="selectedApoyados()">
       <ion-icon name='hand'></ion-icon>
       Apoyados
     </ion-segment-button>
   </ion-segment>
 
-  <ion-card>
-    <ion-card-title>
-      Title
-    </ion-card-title>
-    <ion-card-header>
-      header
-    </ion-card-header>
-    <ion-card-content>
-      content
-      {{this.avisos}}
-    </ion-card-content>
-  </ion-card>
+  <ion-content *ngIf="aviso_type=='cre'">
+    <ion-card *ngFor="let a of avisos_creados" >
+      <ion-card-title>
+        Title
+      </ion-card-title>
+      <ion-card-header>
+        header
+      </ion-card-header>
+      <ion-card-content>
+        content
+        <ion-item >
+          {{a.descripcion}}
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+
+
 
 </ion-content>

@@ -25,7 +25,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 
 import { GoogleMaps} from "@ionic-native/google-maps";
-
+import { Geolocation} from "@ionic-native/geolocation";
 
 @NgModule({
   declarations: [
@@ -63,6 +63,7 @@ import { GoogleMaps} from "@ionic-native/google-maps";
   providers: [
     StatusBar,
     SplashScreen,
+    Geolocation,
     GoogleMaps,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UsuarioProvider,

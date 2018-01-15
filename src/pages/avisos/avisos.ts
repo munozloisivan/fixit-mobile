@@ -17,7 +17,11 @@ import {AvisoProvider } from "../../providers/aviso/aviso";
 })
 export class AvisosPage {
 
-  avisos : any;
+  usuario: any;
+  avisos: any;
+  avisos_creados : any;
+  avisos_apoyados: any;
+  public aviso_type: string;
   identity: {};
   categoria: string;
 
@@ -28,15 +32,17 @@ export class AvisosPage {
               private toastCtrl: ToastController,
               private alertCtrl: AlertController,
               public loadingCtrl: LoadingController) {
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AvisosPage');
     this.identity = JSON.parse(localStorage.getItem('identity'));
-    this.getAvisosCreadosList();
+    //this.getAvisosCreadosList();
+    this.getUsuarioDetails();
   }
 
-  getAvisosCreadosList() {
+ /* getAvisosCreadosList() {
     this.avisoRest.getAvisosUsuario().then((res) => {
       this.avisos = JSON.stringify(res);
       this.categoria = this.avisos['descripcion'];
@@ -44,6 +50,31 @@ export class AvisosPage {
     }, (err) => {
       console.log(err);
     });
+  }*/
+
+  getUsuarioDetails() {
+    this.usuarioRest.showUsuario(this.identity['_id']).then((res) => {
+      console.log(res);
+      this.usuario = res;
+      this.avisos = this.usuario['avisos'];
+      console.log(this.avisos);
+      this.avisos_creados = this.avisos['creados'];
+      console.log('avisos creados: ' +this.avisos_creados);
+      this.avisos_apoyados = this.avisos['apoyados'];
+    }, (err) => {
+      console.log(err);
+    });
   }
+
+  selectedCreados() {
+    this.aviso_type = 'cre';
+    console.log('tipo seleccionado:' +this.aviso_type);
+  }
+
+  selectedApoyados() {
+    this.aviso_type = 'apo';
+    console.log('tipo seleccionado:' +this.aviso_type);
+  }
+
 
 }
