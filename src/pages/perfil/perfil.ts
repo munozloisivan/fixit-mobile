@@ -44,7 +44,6 @@ export class PerfilPage {
       console.log('necesario completar perfil');
       this.presentConfirm();
     }
-
   }
 
   ionViewWillEnter() {

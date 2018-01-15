@@ -31,22 +31,39 @@
   </ion-segment>
 
   <ion-content *ngIf="aviso_type=='cre'">
-    <ion-card *ngFor="let a of avisos_creados" >
+    <ion-card *ngFor="let a of avisos_creados" (click)="goToDetail(a._id)">
       <ion-card-title>
-        Title
+        <img src="http://147.83.7.158/avisos/{{a.imagen}}"/>
       </ion-card-title>
       <ion-card-header>
-        header
+        <h2 align="center">{{a.datosUbicacion.ciudad}}</h2>
+        <h3 align="center">{{a.datosUbicacion.codPostal}} , {{a.datosUbicacion.calle}}</h3>
+        <!--<p align="center">{{a.datosUbicacion.calle}}</p>-->
       </ion-card-header>
       <ion-card-content>
-        content
-        <ion-item >
-          {{a.descripcion}}
-        </ion-item>
+        <p><b>Descripcion:</b> {{a.descripcion}}</p>
+        <p><b>Seguimiento:</b> {{a.seguimiento}}</p>
+        <p><b>Apoyos:</b> {{a.apoyos}}</p>
       </ion-card-content>
     </ion-card>
   </ion-content>
 
+  <ion-content *ngIf="aviso_type=='apo'">
+    <ion-card *ngFor="let a of avisos_apoyados" >
+      <ion-card-title>
+        <img src="http://147.83.7.158/avisos/{{a.imagen}}"/>
+      </ion-card-title>
+      <ion-card-header>
+        <h2 align="center">{{a.datosUbicacion.ciudad}}</h2>
+        <h3 align="center">{{a.datosUbicacion.codPostal}} , {{a.datosUbicacion.calle}}</h3>
+      </ion-card-header>
+      <ion-card-content>
+        <p><b>Descripcion:</b> {{a.descripcion}}</p>
+        <p><b>Seguimiento:</b> {{a.seguimiento}}</p>
+        <p><b>Apoyos:</b> {{a.apoyos}}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
 
 
 </ion-content>

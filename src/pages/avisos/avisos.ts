@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {UsuarioProvider} from "../../providers/usuario/usuario";
 import {AvisoProvider } from "../../providers/aviso/aviso";
+import {AvisoDetailPage} from "../aviso-detail/aviso-detail";
 
 /**
  * Generated class for the AvisosPage page.
@@ -38,19 +39,9 @@ export class AvisosPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AvisosPage');
     this.identity = JSON.parse(localStorage.getItem('identity'));
-    //this.getAvisosCreadosList();
     this.getUsuarioDetails();
+    this.selectedCreados();
   }
-
- /* getAvisosCreadosList() {
-    this.avisoRest.getAvisosUsuario().then((res) => {
-      this.avisos = JSON.stringify(res);
-      this.categoria = this.avisos['descripcion'];
-      console.log('cat: ' + this.categoria);
-    }, (err) => {
-      console.log(err);
-    });
-  }*/
 
   getUsuarioDetails() {
     this.usuarioRest.showUsuario(this.identity['_id']).then((res) => {
@@ -76,5 +67,8 @@ export class AvisosPage {
     console.log('tipo seleccionado:' +this.aviso_type);
   }
 
+  goToDetail(aviso) {
+    this.navCtrl.push(AvisoDetailPage,{avID: aviso});
+  }
 
 }
