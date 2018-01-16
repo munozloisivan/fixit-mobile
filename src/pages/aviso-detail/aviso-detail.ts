@@ -1,7 +1,17 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AvisoProvider } from "../../providers/aviso/aviso";
-
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker,
+  LatLng
+} from '@ionic-native/google-maps';
+import { Geolocation } from "@ionic-native/geolocation";
 /**
  * Generated class for the AvisoDetailPage page.
  *
@@ -25,9 +35,13 @@ export class AvisoDetailPage {
   longitud: any;
   latitud: any;
 
+  site: GoogleMap;
+  marker : any;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              private avisoRest: AvisoProvider) {
+              private avisRest: AvisoProvider,
+              private googleMaps: GoogleMaps) {
 
     this.avisoIdentifier = navParams.get("avID");
     this.aviso = {}
@@ -37,12 +51,13 @@ export class AvisoDetailPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AvisoDetailPage');
     console.log('aviso id: ' + this.avisoIdentifier);
-    this.getAvisoDetails(this.avisoIdentifier);
+    this.getAvDetails(this.avisoIdentifier);
+    this.loadMap();
   }
 
 
-  getAvisoDetails(av) {
-    this.avisoRest.showAviso(av).then((res) => {
+  getAvDetails(av) {
+    this.avisRest.showAviso(av).then((res) => {
       //console.log('Usuario:' + JSON.stringify(res));
       //console.log('res a pelo: ' + res);
       this.aviso = res;
@@ -56,6 +71,68 @@ export class AvisoDetailPage {
     }, (err) => {
       console.log(err);
     });
+  }
+
+  loadMap(){
+
+    let mapOptions2: GoogleMapOptions = {
+      camera: {
+        target: {
+          lat: 2, // default location
+          lng: 41.2132 // default location
+        },
+        zoom: 18,
+        tilt: 30
+      }
+    };
+
+    this.site = this.googleMaps.create('fixer', mapOptions2);
+
+    // Wait the MAP_READY before using any methods.
+    this.site.one(GoogleMapsEvent.MAP_READY)
+      .then(() => {
+        console.log('map ready!');
+        // Now you can use all methods safely.
+        //this.getPosition();
+        this.getPosition();
+        this.marker = {
+          position:{
+            latitude: this.latitud,
+            longitude: this.longitud,
+          },
+          title:'Here'
+        };
+        this.addMarker();
+      })
+      .catch(error =>{
+        console.log(error);
+      });
+  }
+
+  addMarker(){
+    let markerOptions2: MarkerOptions = {
+      position: new LatLng(this.marker.position.latitude, this.marker.position.longitude),
+      title: this.marker.title
+    };
+    this.site.addMarker(markerOptions2);
+  }
+
+  getPosition(): void{
+    this.site.getMyLocation()
+      .then(response => {
+        this.site.moveCamera({
+          target: response.latLng
+        });
+        this.site.addMarker({
+          title: 'My Position',
+          icon: 'blue',
+          animation: 'DROP',
+          position: response.latLng
+        });
+      })
+      .catch(error =>{
+        console.log(error);
+      });
   }
 
 }
