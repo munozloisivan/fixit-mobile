@@ -30,40 +30,68 @@
     </ion-segment-button>
   </ion-segment>
 
+  <!-- AVISOS CREADOS -->
+
   <ion-content *ngIf="aviso_type=='cre'">
-    <ion-card *ngFor="let a of avisos_creados" (click)="goToDetail(a._id)">
-      <ion-card-title>
-        <img src="http://147.83.7.158/avisos/{{a.imagen}}"/>
-      </ion-card-title>
-      <ion-card-header>
-        <h2 align="center">{{a.datosUbicacion.ciudad}}</h2>
-        <h3 align="center">{{a.datosUbicacion.codPostal}} , {{a.datosUbicacion.calle}}</h3>
-        <!--<p align="center">{{a.datosUbicacion.calle}}</p>-->
-      </ion-card-header>
-      <ion-card-content>
-        <p><b>Descripcion:</b> {{a.descripcion}}</p>
-        <p><b>Seguimiento:</b> {{a.seguimiento}}</p>
-        <p><b>Apoyos:</b> {{a.apoyos}}</p>
-      </ion-card-content>
-    </ion-card>
+    <ion-list>
+      <ion-item-sliding *ngFor="let a of avisos_creados"> <!--(click)="goToDetail(a._id)"-->
+          <ion-item>
+            <img src="http://147.83.7.158/avisos/{{a.imagen}}"/>
+
+            <h2 align="center">{{a.datosUbicacion.ciudad}}</h2>
+            <h3 align="center">{{a.datosUbicacion.codPostal}} , {{a.datosUbicacion.calle}}</h3>
+
+            <p><b>Descripcion:</b> {{a.descripcion}}</p>
+            <p><b>Seguimiento:</b> {{a.seguimiento}}</p>
+            <p><b>Apoyos:</b> {{a.apoyos}}</p>
+          </ion-item>
+
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="deleteAvis(a._id)" >
+          <ion-icon name="trash"></ion-icon>
+          Eliminar
+        </button>
+      </ion-item-options>
+      <ion-item-options side="left">
+        <button ion-button color="primary" (click)="goToDetail(a._id)">
+          <ion-icon name="search"></ion-icon>
+          Editar
+        </button>
+      </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
   </ion-content>
+
+  <!-- AVISOS APOYADOS -->
 
   <ion-content *ngIf="aviso_type=='apo'">
-    <ion-card *ngFor="let a of avisos_apoyados" >
-      <ion-card-title>
-        <img src="http://147.83.7.158/avisos/{{a.imagen}}"/>
-      </ion-card-title>
-      <ion-card-header>
-        <h2 align="center">{{a.datosUbicacion.ciudad}}</h2>
-        <h3 align="center">{{a.datosUbicacion.codPostal}} , {{a.datosUbicacion.calle}}</h3>
-      </ion-card-header>
-      <ion-card-content>
-        <p><b>Descripcion:</b> {{a.descripcion}}</p>
-        <p><b>Seguimiento:</b> {{a.seguimiento}}</p>
-        <p><b>Apoyos:</b> {{a.apoyos}}</p>
-      </ion-card-content>
-    </ion-card>
-  </ion-content>
+    <ion-list>
+      <ion-item-sliding *ngFor="let a of avisos_apoyados">
+        <ion-item>
+          <img src="http://147.83.7.158/avisos/{{a.imagen}}"/>
 
+          <h2 align="center">{{a.datosUbicacion.ciudad}}</h2>
+          <h3 align="center">{{a.datosUbicacion.codPostal}} , {{a.datosUbicacion.calle}}</h3>
+
+          <p><b>Descripcion:</b> {{a.descripcion}}</p>
+          <p><b>Seguimiento:</b> {{a.seguimiento}}</p>
+          <p><b>Apoyos:</b> {{a.apoyos}}</p>
+        </ion-item>
+
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="deleteAvis(a._id)" >
+            <ion-icon name="trash"></ion-icon>
+            Eliminar
+          </button>
+        </ion-item-options>
+        <ion-item-options side="left">
+          <button ion-button color="primary" (click)="goToDetail(a._id)">
+            <ion-icon name="search"></ion-icon>
+            Editar
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-content>
 
 </ion-content>

@@ -36,6 +36,7 @@ export class AvisosPage {
 
   }
 
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad AvisosPage');
     this.identity = JSON.parse(localStorage.getItem('identity'));
@@ -43,14 +44,16 @@ export class AvisosPage {
     this.selectedCreados();
   }
 
+  ionViewWillEnter() {
+    this.getUsuarioDetails();
+    this.selectedCreados();
+  }
+
   getUsuarioDetails() {
     this.usuarioRest.showUsuario(this.identity['_id']).then((res) => {
-      console.log(res);
       this.usuario = res;
       this.avisos = this.usuario['avisos'];
-      console.log(this.avisos);
       this.avisos_creados = this.avisos['creados'];
-      console.log('avisos creados: ' +this.avisos_creados);
       this.avisos_apoyados = this.avisos['apoyados'];
     }, (err) => {
       console.log(err);
@@ -69,6 +72,83 @@ export class AvisosPage {
 
   goToDetail(aviso) {
     this.navCtrl.push(AvisoDetailPage,{avID: aviso});
+  }
+
+  deleteAvis(avis) {
+
+    let alert = this.alertCtrl.create({
+      title: 'Eliminar aviso',
+      message:  '¿Estas seguro que deseas eliminar el aviso?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+            //this.navCtrl.pop();
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            console.log('Confirm clicked');
+            this.avisoRest.deleteAvisoUsuario(this.identity['_id'], avis).then((result) => {
+              this.presentLoading();
+              setTimeout(() => {
+                this.okToast('Aviso eliminado');
+                this.getUsuarioDetails();
+                this.selectedCreados();
+                 this.navCtrl.setRoot(AvisosPage);
+                 this.navCtrl.popToRoot();
+              }, 2000);
+            }, (err) => {
+              this.failToast('Error, prueba de nuevo');
+              console.log(err);
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  okToast(mensaje) {
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 1000,
+      position: 'bottom',
+      cssClass: "toast-success",
+      dismissOnPageChange: false
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
+  failToast(mensaje) {
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 2500,
+      position: 'bottom',
+      dismissOnPageChange: true
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Eliminando aviso",
+      duration: 1900
+    });
+    loader.present();
   }
 
 }

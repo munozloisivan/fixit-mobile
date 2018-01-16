@@ -11,6 +11,7 @@ import { Injectable } from '@angular/core';
 export class AvisoProvider {
 
   private apiUrl = 'http://147.83.7.158:80/aviso/';
+  private  apiUrlUser = 'http://147.83.7.158:80/usuario/';
 
   constructor(public http: HttpClient) {
     console.log('Hello AvisoProvider Provider');
@@ -33,6 +34,17 @@ export class AvisoProvider {
     return new Promise((resolve, reject) => {
       this.http.get(this.apiUrl + id)
         .map(res => res)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  deleteAvisoUsuario(user, avis) {
+    return new Promise((resolve, reject) => {
+      this.http.delete( this.apiUrlUser + user + '/aviso/' + avis)
         .subscribe(res => {
           resolve(res);
         }, (err) => {
