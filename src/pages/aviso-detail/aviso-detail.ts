@@ -125,7 +125,7 @@ export class AvisoDetailPage {
           target: response.latLng
         });
         this.site.addMarker({
-          title: 'My Position',
+          title: 'Yo',
           icon: 'blue',
           animation: 'DROP',
           position: response.latLng
