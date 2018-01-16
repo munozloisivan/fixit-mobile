@@ -81,7 +81,7 @@ export class AvisoDetailPage {
           lat: 2, // default location
           lng: 41.2132 // default location
         },
-        zoom: 18,
+        zoom: 10,
         tilt: 30
       }
     };
@@ -100,7 +100,7 @@ export class AvisoDetailPage {
             latitude: this.latitud,
             longitude: this.longitud,
           },
-          title:'Here'
+          title:'Aviso'
         };
         this.addMarker();
       })
@@ -118,6 +118,7 @@ export class AvisoDetailPage {
   }
 
   getPosition(): void{
+
     this.site.getMyLocation()
       .then(response => {
         this.site.moveCamera({
