@@ -53,4 +53,15 @@ export class AvisoProvider {
     });
   }
 
+  getAllAvisos() {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiUrl)
+        .map(res => res)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 }

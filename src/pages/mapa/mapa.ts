@@ -11,6 +11,7 @@ import {
   LatLng
 } from '@ionic-native/google-maps';
 import { Geolocation } from "@ionic-native/geolocation";
+import {AvisoProvider} from "../../providers/aviso/aviso";
 
 /**
  * Generated class for the MapaPage page.
@@ -26,30 +27,20 @@ import { Geolocation } from "@ionic-native/geolocation";
 })
 export class MapaPage {
 
+  avisos: any;
+
   map: GoogleMap;
-  markers: any[] = [
-    {
-      position:{
-        latitude: 41.417800,
-        longitude: 1.819007,
-      },
-      title:'Ivansito'
-    },
-    {
-      position:{
-        latitude: 41.422009,
-        longitude: 1.8330286,
-      },
-      title:'Killerface'
-    }];
+  markers: any[] = [];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private geolocation: Geolocation,
-              private googleMaps: GoogleMaps) {
+              private googleMaps: GoogleMaps,
+              private avisoRest: AvisoProvider) {
   }
 
   ionViewDidLoad(){
+    this.getPositions();
     this.loadMap();
   }
 
@@ -128,5 +119,36 @@ export class MapaPage {
     this.map.addMarker(markerOptions);
   }
 
+  getPositions() {
+    this.avisoRest.getAllAvisos().then((res) => {
+      this.avisos = res;
+      console.log('avisos:' +this.avisos);
+
+      this.avisos.forEach((aviso) => this.markers.push({
+        position:{
+          latitude: aviso.localizacion['lat'],
+          longitude: aviso.localizacion['lon'],
+        },
+        title: aviso.categoria['tipo']
+      }))
+    }, (err) => {
+      console.log(err);
+    });
+  }
 
 }
+
+/*
+* this.markers.push({
+        position:{
+          latitude: this.avisos.localizacion['lat'],
+          longitude: this.avisos.localizacion['lon'],
+        },
+        title: this.avisos.categoria['tipo']
+      }))
+* */
+
+/*
+* console.log(aviso.localizacion['lon']))
+*
+* */
