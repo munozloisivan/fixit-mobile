@@ -12,7 +12,9 @@ import { LoginPage } from "../pages/login/login";
 import { RegistroPage } from "../pages/registro/registro";
 import { EditPerfilPage} from "../pages/edit-perfil/edit-perfil";
 import { AvisoDetailPage} from "../pages/aviso-detail/aviso-detail";
-import { CrearAvisoPage} from "../pages/crear-aviso/crear-aviso";
+import { AvisoStep1Page} from "../pages/aviso-step1/aviso-step1";
+import { AvisoStep2Page} from "../pages/aviso-step2/aviso-step2";
+import { AvisoStep3Page} from "../pages/aviso-step3/aviso-step3";
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -42,7 +44,9 @@ import { Geolocation} from "@ionic-native/geolocation";
     LoginPage,
     EditPerfilPage,
     AvisoDetailPage,
-    CrearAvisoPage
+    AvisoStep1Page,
+    AvisoStep2Page,
+    AvisoStep3Page
   ],
   imports: [
     BrowserModule,
@@ -65,7 +69,9 @@ import { Geolocation} from "@ionic-native/geolocation";
     LoginPage,
     EditPerfilPage,
     AvisoDetailPage,
-    CrearAvisoPage
+    AvisoStep1Page,
+    AvisoStep2Page,
+    AvisoStep3Page
   ],
   providers: [
     StatusBar,

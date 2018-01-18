@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -12,6 +12,8 @@ import {
 } from '@ionic-native/google-maps';
 import { Geolocation } from "@ionic-native/geolocation";
 import {AvisoProvider} from "../../providers/aviso/aviso";
+import {AvisoStep1Page} from "../aviso-step1/aviso-step1";
+import { UsuarioProvider } from "../../providers/usuario/usuario";
 
 /**
  * Generated class for the MapaPage page.
@@ -31,17 +33,24 @@ export class MapaPage {
 
   map: GoogleMap;
   markers: any[] = [];
+  identity: {};
+  lat: any;
+  lon: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private geolocation: Geolocation,
               private googleMaps: GoogleMaps,
-              private avisoRest: AvisoProvider) {
+              private avisoRest: AvisoProvider,
+              private usuarioRest: UsuarioProvider,
+              private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad(){
     this.getPositions();
     this.loadMap();
+    this.identity = JSON.parse(localStorage.getItem('identity'));
+    console.log(this.identity['_id']);
   }
 
   loadMap(){
@@ -62,24 +71,10 @@ export class MapaPage {
     // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
-      console.log('map ready!');
+        console.log('map ready!');
         // Now you can use all methods safely.
         this.getPosition();
-        /*this.map.addMarker({
-          title: 'Ionic',
-          icon: 'blue',
-          animation: 'DROP',
-          position: {
-            lat: 43.0741904,
-            lng: -89.3809802
-          }
-        })
-          .then(marker => {
-            marker.on(GoogleMapsEvent.MARKER_CLICK)
-              .subscribe(() => {
-                alert('clicked');
-              });
-          });*/
+
         this.markers.forEach(marker=>{
           this.addMarker(marker);
         });
@@ -100,11 +95,14 @@ export class MapaPage {
           target: response.latLng
         });
         this.map.addMarker({
-          title: 'My Position',
+          draggable: true,
+          title: response.latLng.toString(),
           icon: 'blue',
           animation: 'DROP',
           position: response.latLng
         });
+        this.lat = response.latLng.lat;
+        this.lon = response.latLng.lng;
       })
       .catch(error =>{
         console.log(error);
@@ -136,19 +134,26 @@ export class MapaPage {
     });
   }
 
+  Create() {
+    this.usuarioRest.createAviso(this.identity['_id'], {"localizacion":{"lon": this.lon, "lat":this.lat}}).then((res) => {
+      //console.log('Usuario:' + JSON.stringify(res));
+      //console.log('res a pelo: ' + res);
+      //this.usuario = res;
+      console.log('aviso creado response:' +res);
+      let av = res['_id'];
+      console.log('id del aviso: ' + av);
+      let alert = this.alertCtrl.create({
+        title: 'Aviso ' + av ,
+        subTitle: 'coordenadas ' + this.lon ,
+        buttons: ['Dismiss']
+      });
+      alert.present();
+      this.navCtrl.push(AvisoStep1Page, {AVISO: av} );
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+
 }
 
-/*
-* this.markers.push({
-        position:{
-          latitude: this.avisos.localizacion['lat'],
-          longitude: this.avisos.localizacion['lon'],
-        },
-        title: this.avisos.categoria['tipo']
-      }))
-* */
-
-/*
-* console.log(aviso.localizacion['lon']))
-*
-* */

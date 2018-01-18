@@ -76,5 +76,16 @@ export class UsuarioProvider {
     });
   }
 
+  createAviso(id,data) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl + id + '/addaviso', data)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
 
 }
