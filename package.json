@@ -20,7 +20,6 @@
     "@angular/http": "5.0.3",
     "@angular/platform-browser": "5.0.3",
     "@angular/platform-browser-dynamic": "5.0.3",
-    "@ionic-native/camera": "4.3.3",
     "@ionic-native/core": "4.4.0",
     "@ionic-native/geolocation": "^4.5.2",
     "@ionic-native/google-maps": "^4.5.2",
@@ -33,7 +32,6 @@
     "bcrypt": "1.0.3",
     "cordova-android": "~6.3.0",
     "cordova-ios": "~4.5.4",
-    "cordova-plugin-camera": "^4.0.1",
     "cordova-plugin-device": "^1.1.4",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googlemaps": "^2.1.1",
@@ -45,12 +43,13 @@
     "ionicons": "3.0.0",
     "rxjs": "5.5.2",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.18"
+    "zone.js": "0.8.18",
+    "@ionic-native/camera": "4.3.3"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.6",
     "@types/bcrypt": "1.0.0",
-    "typescript": "2.4.2"
+    "typescript": "2.4.0"
   },
   "description": "An Ionic project",
   "cordova": {
@@ -62,8 +61,7 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": "La aplicación necesita acceso a la geolocalización"
-      },
-      "cordova-plugin-camera": {}
+      }
     },
     "platforms": [
       "android",

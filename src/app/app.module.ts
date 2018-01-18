@@ -29,7 +29,6 @@ import {HttpModule} from "@angular/http";
 
 import { GoogleMaps} from "@ionic-native/google-maps";
 import { Geolocation} from "@ionic-native/geolocation";
-import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [

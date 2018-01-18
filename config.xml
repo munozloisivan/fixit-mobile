@@ -86,5 +86,4 @@
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="La aplicación necesita acceso a la geolocalización" />
     </plugin>
-    <plugin name="cordova-plugin-camera" spec="^4.0.1" />
 </widget>

@@ -1,6 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Camera, CameraOptions} from '@ionic-native/camera';
+import { Component } from '@angular/core';
+import { Camera } from 'ionic-native';
 import { IonicPage, NavController, ViewController } from 'ionic-angular';
 
 /**
@@ -16,25 +15,26 @@ import { IonicPage, NavController, ViewController } from 'ionic-angular';
   templateUrl: 'crear-aviso.html',
 })
 export class CrearAvisoPage {
-  image: string = null;
+  imageURL
+  base64Image
 
-  constructor(
-    private camera: Camera
-  ) {}
+  constructor() {}
+  takePhoto(){
+    Camera.getPicture().then((imageData) => {
+      this.imageURL = imageData
+    }, (err) => {
+      console.log(err);
+    });
+  }
 
-  getPicture(){
-    let options: CameraOptions = {
-      destinationType: this.camera.DestinationType.DATA_URL,
-      targetWidth: 1000,
-      targetHeight: 1000,
-      quality: 100
-    }
-    this.camera.getPicture( options )
-      .then(imageData => {
-        this.image = `data:image/jpeg;base64,${imageData}`;
-      })
-      .catch(error =>{
-        console.error( error );
-      });
+  accessGallery(){
+    Camera.getPicture({
+      sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+      destinationType: Camera.DestinationType.DATA_URL
+    }).then((imageData) => {
+      this.base64Image = 'data:image/jpeg;base64,'+imageData;
+    }, (err) => {
+      console.log(err);
+    });
   }
 }
