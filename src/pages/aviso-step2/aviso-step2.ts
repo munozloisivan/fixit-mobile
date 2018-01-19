@@ -24,6 +24,8 @@ export class AvisoStep2Page {
 
   categoria: any; //recogida del html
   descripcion: any; //recogida del html
+  ciudad: any;
+  codigoPostal: any;
 
   categorias: any; //listado de categorias
 
@@ -65,6 +67,8 @@ export class AvisoStep2Page {
     //completamos el aviso con los datos nuevos del step 1 ()
     this.avisoStep2.categoria = this.categoria;
     this.avisoStep2.descripcion = this.descripcion;
+    this.avisoStep2['datosUbicacion.ciudad'] = this.ciudad;
+    this.avisoStep2['datosUbicacion.codPostal'] = this.codigoPostal;
 
     //actualizamos el aviso con los datos del step1
     this.avisRest.updateAviso(this.avi, this.avisoStep2).then((result) => {

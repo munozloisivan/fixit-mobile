@@ -24,6 +24,22 @@
     <ion-label>Descripción</ion-label>
     <ion-input type="text" required [(ngModel)]="descripcion" name="Descripción"></ion-input>
   </ion-item>
+  <ion-item>
+    <ion-label>Ciudad</ion-label>
+    <ion-select type="text"  required [(ngModel)]="ciudad" name="Ciudad">
+      <ion-option value="Barcelona">Barcelona</ion-option>
+      <ion-option value="Castelldefels">Castelldefels</ion-option>
+      <ion-option  value="">Otra</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Escriba aqui la ciudad</ion-label>
+    <ion-input type="text" required [(ngModel)]="ciudad" name="Ciudad"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Codigo Postal</ion-label>
+    <ion-input type="text" required [(ngModel)]="codigoPostal" name="CodigoPostal"></ion-input>
+  </ion-item>
   <div padding>
     <button ion-button round type="submit" class="button-form" [disabled]="!step2Form.form.valid">Siguiente paso</button>
   </div>
