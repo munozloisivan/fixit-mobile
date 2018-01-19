@@ -12,9 +12,20 @@
 
 </ion-header>
 
-
-<ion-content padding>
+<ion-content>
+<form (ngSubmit)="updateStep2()" #step2Form="ngForm">
+  <ion-item>
+    <ion-label>Categoria</ion-label>
+    <ion-select type="text"  required [(ngModel)]="categoria" name="categoria">
+      <ion-option *ngFor="let c of categorias" [value]="c._id">{{c.tipo}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Descripción</ion-label>
+    <ion-input type="text" required [(ngModel)]="descripcion" name="Descripción"></ion-input>
+  </ion-item>
   <div padding>
-    <button ion-button round type="submit" (click)="updateStep2()">Siguiente Paso</button>
+    <button ion-button round type="submit" class="button-form" [disabled]="!step2Form.form.valid">Siguiente paso</button>
   </div>
+</form>
 </ion-content>

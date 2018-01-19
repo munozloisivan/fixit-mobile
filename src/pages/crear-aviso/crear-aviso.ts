@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { Camera } from 'ionic-native';
+/*import { Component } from '@angular/core';
+import { Camera } from '@ionic-native/camera';
 import { IonicPage, NavController, ViewController } from 'ionic-angular';
 
-/**
+/!**
  * Generated class for the CrearAvisoPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
- */
+ *!/
 
 @IonicPage()
 @Component({
@@ -37,4 +37,4 @@ export class CrearAvisoPage {
       console.log(err);
     });
   }
-}
+}*/

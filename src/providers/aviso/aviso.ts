@@ -64,4 +64,16 @@ export class AvisoProvider {
         });
     });
   }
+
+  updateAviso(id, data) {
+    return new Promise((resolve, reject) => {
+      this.http.put(this.apiUrl + id, data)
+        .map(res => res)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 }

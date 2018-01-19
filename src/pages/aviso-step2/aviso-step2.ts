@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AvisoProvider} from "../../providers/aviso/aviso";
 import {AvisoStep3Page} from "../aviso-step3/aviso-step3";
+import {CategoriaProvider} from "../../providers/categoria/categoria";
 
 /**
  * Generated class for the AvisoStep2Page page.
@@ -17,14 +18,20 @@ import {AvisoStep3Page} from "../aviso-step3/aviso-step3";
 })
 export class AvisoStep2Page {
 
-  avi: any;
+  avi: any; //id del aviso
   identity : {};
-  avisoStep2: any;
+  avisoStep2: any; //objeto aviso step2
+
+  categoria: any; //recogida del html
+  descripcion: any; //recogida del html
+
+  categorias: any; //listado de categorias
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private avisRest: AvisoProvider,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private categoriaRest: CategoriaProvider) {
     this.avi = navParams.get("Step1id");
   }
 
@@ -34,6 +41,7 @@ export class AvisoStep2Page {
     console.log('step 3 usuario' + this.identity['_id']);
     console.log('step 3 aviso: ' +this.avi);
     this.getAvDetailsStep2();
+    this.getCategoriaList();
   }
 
   getAvDetailsStep2() {
@@ -54,7 +62,27 @@ export class AvisoStep2Page {
   }
 
   updateStep2() {
+    //completamos el aviso con los datos nuevos del step 1 ()
+    this.avisoStep2.categoria = this.categoria;
+    this.avisoStep2.descripcion = this.descripcion;
+
+    //actualizamos el aviso con los datos del step1
+    this.avisRest.updateAviso(this.avi, this.avisoStep2).then((result) => {
+      console.log('aviso actualizado: '+result);
+    }, (err) => {
+      console.log(err);
+    });
+
     this.navCtrl.push(AvisoStep3Page, {Step2id: this.avi})
+  }
+
+  getCategoriaList() {
+    this.categoriaRest.getAllCategorias().then((res) => {
+      console.log(res);
+      this.categorias = res;
+    }, (err) => {
+      console.log(err);
+    });
   }
 
 }
