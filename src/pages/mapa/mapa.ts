@@ -53,6 +53,10 @@ export class MapaPage {
     console.log(this.identity['_id']);
   }
 
+  ionViewWillEnter() {
+    this.getPositions();
+  }
+
   loadMap(){
 
     let mapOptions: GoogleMapOptions = {

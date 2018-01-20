@@ -4,6 +4,7 @@ import {AvisoProvider} from "../../providers/aviso/aviso";
 import {AvisoStep2Page} from "../aviso-step2/aviso-step2";
 
 
+import { Camera, CameraOptions } from '@ionic-native/camera';
 /**
  * Generated class for the AvisoStep1Page page.
  *
@@ -22,13 +23,13 @@ export class AvisoStep1Page {
   av : any;
   aviso: any;
 
-  imageURL;
-  base64Image;
+  image: string = null;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private avisRest: AvisoProvider,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private camera: Camera) {
 
     this.av = navParams.get("AVISO");
   }
@@ -73,24 +74,19 @@ export class AvisoStep1Page {
     this.navCtrl.push(AvisoStep2Page, {Step1id: this.av});
   }
 
-/*  takePhoto(){
-    Camera.getPicture().then((imageData) => {
-      this.imageURL = imageData
-    }, (err) => {
-      console.log(err);
-    });
+  getPicture(){
+    let options: CameraOptions = {
+      destinationType: this.camera.DestinationType.DATA_URL,
+      targetWidth: 1000,
+      targetHeight: 1000,
+      quality: 100
+    }
+    this.camera.getPicture( options )
+      .then(imageData => {
+        this.image = `data:image/jpeg;base64,${imageData}`;
+      })
+      .catch(error =>{
+        console.error( error );
+      });
   }
-
-  accessGallery(){
-    Camera.getPicture({
-      sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
-      destinationType: Camera.DestinationType.DATA_URL
-    }).then((imageData) => {
-      this.base64Image = 'data:image/jpeg;base64,'+imageData;
-    }, (err) => {
-      console.log(err);
-    });
-  }*/
-
-
 }

@@ -55,6 +55,10 @@ export class AvisoDetailPage {
     this.loadMap();
   }
 
+  ionViewWillEnter() {
+    this.getAvDetails(this.avisoIdentifier);
+  }
+
 
   getAvDetails(av) {
     this.avisRest.showAviso(av).then((res) => {

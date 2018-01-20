@@ -21,6 +21,13 @@
 
  <!-- <button ion-button color="primary" (click)="accessGallery()">Open Gallery</button>
   <img [src]="base64Image" *ngIf="base64Image" />-->
+  <ion-content padding>
+    <button ion-button block (click)="getPicture()">Toma una foto</button>
+    <img [src]="image" *ngIf="image" />
+    
+
+  </ion-content>
+
   <div padding>
     <button ion-button round type="submit" (click)="updateStep1()">Siguiente Paso</button>
   </div>
