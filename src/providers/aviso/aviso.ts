@@ -76,4 +76,20 @@ export class AvisoProvider {
         });
     });
   }
+
+  uploadImage(id, image) {
+    //const headers = new Headers({ 'Authorization': this.token });
+    //const options = new RequestOptions({ headers: headers });
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl + 'image/' + id, image)
+        .map(res => res)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+
 }

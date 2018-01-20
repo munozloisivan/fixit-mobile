@@ -25,6 +25,8 @@ export class AvisoStep1Page {
 
   image: string = null;
 
+  image_status: string;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private avisRest: AvisoProvider,
@@ -47,12 +49,12 @@ export class AvisoStep1Page {
       //console.log('Usuario:' + JSON.stringify(res));
       //console.log('res a pelo: ' + res);
       this.aviso = res;
-      let alert = this.alertCtrl.create({
+      /*let alert = this.alertCtrl.create({
         title: 'Aviso Step1 ' + this.aviso ,
         subTitle:  'id: ' + this.av,
         buttons: ['Dismiss']
       });
-      alert.present();
+      alert.present();*/
 
     }, (err) => {
       console.log(err);
@@ -77,16 +79,30 @@ export class AvisoStep1Page {
   getPicture(){
     let options: CameraOptions = {
       destinationType: this.camera.DestinationType.DATA_URL,
-      targetWidth: 1000,
-      targetHeight: 1000,
+      encodingType: this.camera.EncodingType.JPEG, //
+      mediaType: this.camera.MediaType.PICTURE, //
+      targetWidth: 900,
+      targetHeight: 600,
       quality: 100
-    }
+    };
     this.camera.getPicture( options )
       .then(imageData => {
-        this.image = `data:image/jpeg;base64,${imageData}`;
+        this.image = 'data:image/jpeg;base64,' + imageData;   //replace ${} con + imageData
+        this.uploadImage(this.av);
       })
       .catch(error =>{
         console.error( error );
       });
+  }
+
+   uploadImage(id) {
+    this.avisRest.uploadImage(id, this.image).then((res) => {
+      this.image_status = 'success';
+      setTimeout(() => {this.image_status = ''; }, 1000);
+    }, (err) => {
+      console.log(err);
+      this.image_status = 'error';
+      setTimeout(() => {this.image_status = ''; }, 1000);
+    });
   }
 }

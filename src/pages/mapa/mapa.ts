@@ -146,12 +146,12 @@ export class MapaPage {
       console.log('aviso creado response:' +res);
       let av = res['_id'];
       console.log('id del aviso: ' + av);
-      let alert = this.alertCtrl.create({
+      /*let alert = this.alertCtrl.create({
         title: 'Aviso ' + av ,
         subTitle: 'coordenadas ' + this.lon ,
         buttons: ['Dismiss']
       });
-      alert.present();
+      alert.present();*/
       this.navCtrl.push(AvisoStep1Page, {AVISO: av} );
     }, (err) => {
       console.log(err);
