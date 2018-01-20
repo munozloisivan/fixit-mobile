@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {Http, Headers, RequestOptions} from '@angular/http';
+import { HttpHeaders } from "@angular/common/http";
 
 /*
   Generated class for the AvisoProvider provider.
@@ -78,8 +80,6 @@ export class AvisoProvider {
   }
 
   uploadImage(id, image) {
-    //const headers = new Headers({ 'Authorization': this.token });
-    //const options = new RequestOptions({ headers: headers });
     return new Promise((resolve, reject) => {
       this.http.post(this.apiUrl + 'image/' + id, image)
         .map(res => res)

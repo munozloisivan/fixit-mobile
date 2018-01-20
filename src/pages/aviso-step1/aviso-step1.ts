@@ -23,7 +23,7 @@ export class AvisoStep1Page {
   av : any;
   aviso: any;
 
-  image: string = null;
+  image: string;
 
   image_status: string;
 
@@ -88,15 +88,17 @@ export class AvisoStep1Page {
     this.camera.getPicture( options )
       .then(imageData => {
         this.image = 'data:image/jpeg;base64,' + imageData;   //replace ${} con + imageData
-        this.uploadImage(this.av);
+        const input = new FormData();
+        input.append('image', this.image);
+        this.uploadImage(this.av, input);
       })
       .catch(error =>{
         console.error( error );
       });
   }
 
-   uploadImage(id) {
-    this.avisRest.uploadImage(id, this.image).then((res) => {
+   uploadImage(id, pic) {
+    this.avisRest.uploadImage(id, pic).then((res) => {
       this.image_status = 'success';
       setTimeout(() => {this.image_status = ''; }, 1000);
     }, (err) => {
