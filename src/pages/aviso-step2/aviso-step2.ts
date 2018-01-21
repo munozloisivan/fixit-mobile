@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AvisoProvider} from "../../providers/aviso/aviso";
-import {AvisoStep3Page} from "../aviso-step3/aviso-step3";
+
 import {CategoriaProvider} from "../../providers/categoria/categoria";
+
 
 /**
  * Generated class for the AvisoStep2Page page.
@@ -76,8 +77,6 @@ export class AvisoStep2Page {
     }, (err) => {
       console.log(err);
     });
-
-    this.navCtrl.push(AvisoStep3Page, {Step2id: this.avi})
   }
 
   getCategoriaList() {

@@ -14,8 +14,6 @@ import { EditPerfilPage} from "../pages/edit-perfil/edit-perfil";
 import { AvisoDetailPage} from "../pages/aviso-detail/aviso-detail";
 import { AvisoStep1Page} from "../pages/aviso-step1/aviso-step1";
 import { AvisoStep2Page} from "../pages/aviso-step2/aviso-step2";
-import { AvisoStep3Page} from "../pages/aviso-step3/aviso-step3";
-
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -50,8 +48,7 @@ import { File } from '@ionic-native/file';
     EditPerfilPage,
     AvisoDetailPage,
     AvisoStep1Page,
-    AvisoStep2Page,
-    AvisoStep3Page
+    AvisoStep2Page
   ],
   imports: [
     BrowserModule,
@@ -75,8 +72,7 @@ import { File } from '@ionic-native/file';
     EditPerfilPage,
     AvisoDetailPage,
     AvisoStep1Page,
-    AvisoStep2Page,
-    AvisoStep3Page
+    AvisoStep2Page
   ],
   providers: [
     StatusBar,
