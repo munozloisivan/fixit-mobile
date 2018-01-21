@@ -4,6 +4,7 @@ import {UsuarioProvider} from "../../providers/usuario/usuario";
 import {WelcomePage} from "../welcome/welcome";
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import {PerfilPage} from "../perfil/perfil";
 /**
  * Generated class for the EditPerfilPage page.
  *
@@ -95,41 +96,6 @@ export class EditPerfilPage {
       });
   }
 
-  deleteUsuario() {
-    let alert = this.alertCtrl.create({
-      title: 'Eliminar cuenta',
-      message:  '¿Estas seguro que deseas eliminar tu cuenta?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-            this.navCtrl.pop();
-          }
-        },
-        {
-          text: 'Aceptar',
-          handler: () => {
-            console.log('Confirm clicked');
-            this.usuarioRest.deleteUsuario(this.identity['_id']).then((res) => {
-              this.presentLoading();
-              setTimeout(() => {
-                this.okToast('Cuenta eliminada');
-                this.navCtrl.setRoot(WelcomePage);
-                this.navCtrl.popToRoot();
-              }, 2000);
-            }, (err) => {
-              this.failToast('Error, prueba de nuevo');
-              console.log(err);
-            });
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
   okToast(mensaje) {
     let toast = this.toastCtrl.create({
       message: mensaje,
@@ -205,6 +171,11 @@ export class EditPerfilPage {
       .then((data) => {
         console.log(data+" Uploaded Successfully");
         this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg";
+        setTimeout(() => {
+          this.okToast('Imagen actualizada correctamente');
+          this.navCtrl.setRoot(PerfilPage);
+          this.navCtrl.popToRoot();
+        }, 2000);
         loader.dismiss();
       }, (err) => {
         console.log(err);

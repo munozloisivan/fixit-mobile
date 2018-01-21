@@ -1,10 +1,5 @@
 <ion-content>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-col>
-        Perfil de {{usuario.alias}}
-      </ion-col>
+  <div>
       <ion-col>
         <button ion-button round (click)="goEditPerfil()">
           <ion-icon name="settings"></ion-icon>
@@ -15,10 +10,18 @@
           <ion-icon name="log-out"></ion-icon>
         </button>
       </ion-col>
-    </ion-card-header>
+      <ion-col>
+        <button ion-button round color="danger" (click)="deleteUsuario()">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-col>
+  </div>
+
+  <div>
     <ion-item>
         <img src="http://147.83.7.158/usuarios/{{usuario.imagen}}" class="imgR"/>
     </ion-item>
+  </div>
 
     <!--<img [src]="">-->
     <h3><b>Alias:</b> {{usuario.alias}}</h3>
@@ -27,33 +30,12 @@
     <p><b>Email:</b>  {{usuario.email}}</p>
     <p><b>Teléfono:</b> {{usuario.telefono}}</p>
     <p><b>Código postal:</b>  {{usuario.codigoPostal}}</p>
-    <ion-row>
-      <ion-col>
-        <button ion-button color="primary" clear small icon-start>
-          <ion-icon name='alert'></ion-icon>
-          avisos creados
-        </button>
-        <button ion-button color="primary" clear small icon-start>
-          <ion-icon name='text'></ion-icon>
-          avisos apoyados
-        </button>
-        <button ion-button color="primary" clear small icon-start>
-          <ion-icon name='thumbs-up'></ion-icon>
-          {{usuario.participantes}} Participantes
-        </button>
-        <button ion-button color="primary" clear small icon-start>
-          <ion-icon name='ribbon'></ion-icon>
-          logros
-        </button>
-      </ion-col>
-      <ion-col center text-center>
 
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-note>
-        Es imprescindible tener completado el perfil para poder hacer uso de todas las funcionalidades de FIXIT
-      </ion-note>
-    </ion-row>
-  </ion-card>
+
+  <ion-footer>
+    <ion-toolbar>
+      Es imprescindible tener completado el perfil para poder hacer uso de todas las funcionalidades
+    </ion-toolbar>
+  </ion-footer>
+
 </ion-content>

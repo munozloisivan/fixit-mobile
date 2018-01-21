@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
 import {EditPerfilPage} from "../edit-perfil/edit-perfil";
 import {WelcomePage} from "../welcome/welcome";
@@ -29,7 +29,9 @@ export class PerfilPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private usuarioRest: UsuarioProvider,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private toastCtrl: ToastController,
+              public loadingCtrl: LoadingController) {
 
     this.usuario = {}
 
@@ -162,6 +164,79 @@ export class PerfilPage {
       ]
     });
     alert.present();
+  }
+
+  deleteUsuario() {
+    let alert = this.alertCtrl.create({
+      title: 'Eliminar cuenta',
+      message:  '¿Estas seguro que deseas eliminar tu cuenta?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            console.log('Confirm clicked');
+            this.usuarioRest.deleteUsuario(this.identity['_id']).then((res) => {
+              this.presentLoading();
+              setTimeout(() => {
+                this.okToast('Cuenta eliminada');
+                this.navCtrl.setRoot(WelcomePage);
+                this.navCtrl.popToRoot();
+              }, 2000);
+            }, (err) => {
+              this.failToast('Error, prueba de nuevo');
+              console.log(err);
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  okToast(mensaje) {
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 1000,
+      position: 'bottom',
+      cssClass: "toast-success",
+      dismissOnPageChange: false
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
+  failToast(mensaje) {
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 2500,
+      position: 'bottom',
+      dismissOnPageChange: true
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Borrando datos de la cuenta",
+      duration: 1900
+    });
+    loader.present();
   }
 
 }

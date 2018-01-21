@@ -81,12 +81,6 @@ export class AvisoStep2Page {
         this.navCtrl.setRoot(MapaPage);
         this.navCtrl.popToRoot();
       }, 2000);
-
-
-
-
-
-
     }, (err) => {
       console.log(err);
     });
