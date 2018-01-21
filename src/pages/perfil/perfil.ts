@@ -43,9 +43,9 @@ export class PerfilPage {
     console.log(this.identity['_id']);
     this.getUsuarioDetails();
 
-    if (!this.usuario.nombre || !this.usuario.apellidos || !this.usuario.dni ||  !this.usuario.alias || !this.usuario.telefono || !this.usuario.codigoPostal) {
+    if (!this.usuario.nombre || !this.usuario.apellidos || !this.usuario.dni) {
       console.log('necesario completar perfil');
-      this.presentConfirm();
+     // this.presentConfirm();
     }
   }
 
@@ -68,51 +68,17 @@ export class PerfilPage {
   }
 
   presentConfirm() {
-    let nombre = this.usuario.nombre;
-    let apellidos = this.usuario.apellidos;
-    let dni = this.usuario.dni;
-    let telefono = this.usuario.telefono;
-    let codigoPostal = this.usuario.codigoPostal;
-    let alias = this.usuario.alias;
 
+    this.camposObligatorios = '<ul><li>Nombre</li><li>Apellidos</li><li>Dni</li></ul>';
+    this.camposOptativos = '<ul><li>Teléfono</li><li>Código postal</li><li>Alias</li></ul>';
 
-    if (!nombre || !apellidos || !dni) {
-      if ((!nombre && !apellidos && !dni))
-      this.camposObligatorios = '<ul><li>Nombre</li><li>Apellidos</li><li>Dni</li></ul>';
-      else if (!nombre && !apellidos) {
-        this.camposObligatorios = '<ul><li>Nombre</li><li>Apellidos</li></ul>';
-      }
-      else if (!dni) {
-        this.camposObligatorios = '<ul><li>Dni</li></ul>';
-      }
-
-    }
-    if (!telefono || !codigoPostal || !alias) {
-      if (!telefono && !codigoPostal && !alias) {
-        this.camposOptativos = '<ul><li>Teléfono</li><li>Código postal</li><li>Alias</li></ul>';
-      }
-      else if (!telefono && !codigoPostal) {
-        this.camposOptativos = '<ul><li>Teléfono</li><li>Código postal</li></ul>';
-      }
-      else if (!alias) {
-        this.camposOptativos = '<ul><li>Alias</li></ul>';
-      }
+    if (!this.usuario.nombre || !this.usuario.apellidos || !this.usuario.dni) {
+     this.msg = 'Recuerde completar los siguientes campos \n' + 'Obligatorios: \n'+  this.camposObligatorios + 'Optativos: \n'+ this.camposObligatorios;
     }
 
-    if (!this.camposObligatorios && !this.camposOptativos) {
-      this.msg = '<p>Para poder utilizar todas las funcionalidades debes completar todos tus datos personales</p> ' +
-        '<p><b>Campos obligatorios: </b></p>' + this.camposObligatorios +
-        '<p><b>Campos optativos: </b></p>' + this.camposOptativos;
-    }
-    else if (!this.camposObligatorios) {
-      this.msg = '<p>Para poder utilizar todas las funcionalidades debes completar todos tus datos personales</p> ' +
-        '<p><b>Campos optativos: </b></p>' + this.camposOptativos;
-    }
-    else if (!this.camposOptativos) {
-          this.msg = '<p>Para poder utilizar todas las funcionalidades debes completar todos tus datos personales</p> ' +
-                     '<p><b>Campos obligatorios: </b></p>' + this.camposObligatorios;
-      }
-
+    console.log('mensage del alert: ' +this.msg);
+    console.log('obligatorios: '+this.camposObligatorios);
+    console.log('optativos: '+this.camposOptativos);
 
     let alert = this.alertCtrl.create({
       title: 'Perfil incompleto',

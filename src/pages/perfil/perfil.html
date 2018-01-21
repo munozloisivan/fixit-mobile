@@ -1,5 +1,5 @@
 <ion-content>
-  <div>
+  <div class="arriba">
       <ion-col>
         <button ion-button round (click)="goEditPerfil()">
           <ion-icon name="settings"></ion-icon>
@@ -17,12 +17,14 @@
       </ion-col>
   </div>
 
-  <div>
+  <div class="foto">
     <ion-item>
         <img src="http://147.83.7.158/usuarios/{{usuario.imagen}}" class="imgR"/>
     </ion-item>
   </div>
 
+
+  <div class="texto">
     <!--<img [src]="">-->
     <h3><b>Alias:</b> {{usuario.alias}}</h3>
     <p><b>Nombre y apellidos:</b>  {{usuario.nombre}} {{usuario.apellidos}}</p>
@@ -30,10 +32,11 @@
     <p><b>Email:</b>  {{usuario.email}}</p>
     <p><b>Teléfono:</b> {{usuario.telefono}}</p>
     <p><b>Código postal:</b>  {{usuario.codigoPostal}}</p>
+  </div>
 
 
-  <ion-footer>
-    <ion-toolbar>
+    <ion-footer class="footer">
+    <ion-toolbar class="footer">
       Es imprescindible tener completado el perfil para poder hacer uso de todas las funcionalidades
     </ion-toolbar>
   </ion-footer>

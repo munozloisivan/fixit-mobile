@@ -100,7 +100,7 @@ export class MapaPage {
         });
         this.map.addMarker({
           draggable: true,
-          title: response.latLng.toString(),
+          title: 'Mi posición',
           icon: 'blue',
           animation: 'DROP',
           position: response.latLng
@@ -116,7 +116,8 @@ export class MapaPage {
   addMarker(options){
     let markerOptions: MarkerOptions = {
       position: new LatLng(options.position.latitude, options.position.longitude),
-      title: options.title
+      title: options.title,
+      icon: options.icon
     };
     this.map.addMarker(markerOptions);
   }
@@ -131,7 +132,8 @@ export class MapaPage {
           latitude: aviso.localizacion['lat'],
           longitude: aviso.localizacion['lon'],
         },
-        title: aviso.categoria['tipo']
+        title: aviso.categoria['tipo'],
+        icon: 'http://147.83.7.158/assets/iconos/' +aviso.categoria.icono
       }))
     }, (err) => {
       console.log(err);
