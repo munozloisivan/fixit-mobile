@@ -7,26 +7,41 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>aviso-step1</ion-title>
+    <ion-title>¡Házle una foto!</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-
-  Aquí ira el hacer foto o escogerla de la libreria
-  <!--<button ion-button color="dark" (click)="takePhoto()">Take Photo</button>
-  <img [src]="imageURL" *ngIf="imageURL" />-->
-
- <!-- <button ion-button color="primary" (click)="accessGallery()">Open Gallery</button>
-  <img [src]="base64Image" *ngIf="base64Image" />-->
-
-    <button ion-button block (click)="getPicture()">Toma una foto</button>
-    <img [src]="image" *ngIf="image" />
-    <button ion-button block (click)="uploadImage()">Subir esta foto</button>
+  <ion-item>
+    <p>{{imageURI}}</p>
+    <button ion-button color="secondary" (click)="getImage()">Hacer foto</button>
+  </ion-item>
+  <ion-item>
+    <h4>Image Preview</h4>
+    <img src="{{imageFileName}}" *ngIf="imageFileName" alt="Ionic File" width="300" />
+  </ion-item>
+  <ion-item>
+    <button ion-button (click)="uploadFile()">Utilizar esta</button>
+  </ion-item>
 
   <div padding>
     <button ion-button round type="submit" (click)="updateStep1()">Siguiente Paso</button>
   </div>
 </ion-content>
+
+<!--<ion-content padding>
+
+  Aquí ira el hacer foto o escogerla de la libreria
+  &lt;!&ndash;<button ion-button color="dark" (click)="takePhoto()">Take Photo</button>
+  <img [src]="imageURL" *ngIf="imageURL" />&ndash;&gt;
+
+ &lt;!&ndash; <button ion-button color="primary" (click)="accessGallery()">Open Gallery</button>
+  <img [src]="base64Image" *ngIf="base64Image" />&ndash;&gt;
+
+    <button ion-button block (click)="getPicture()">Toma una foto</button>
+    <img [src]="image" *ngIf="image" />
+    <button ion-button block (click)="uploadImage()">Subir esta foto</button>
+
+
+</ion-content>-->

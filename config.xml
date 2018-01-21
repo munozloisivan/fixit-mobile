@@ -87,4 +87,6 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="La aplicación necesita acceso a la geolocalización" />
     </plugin>
     <plugin name="cordova-plugin-camera" spec="^4.0.1" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
 </widget>

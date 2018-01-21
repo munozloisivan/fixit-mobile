@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AvisoProvider} from "../../providers/aviso/aviso";
 import {AvisoStep2Page} from "../aviso-step2/aviso-step2";
-
-
+import { LoadingController, ToastController } from 'ionic-angular';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 /**
  * Generated class for the AvisoStep1Page page.
@@ -22,16 +22,19 @@ export class AvisoStep1Page {
   identity : {};
   av : any;
   aviso: any;
-
+  imageURI:any;
+  imageFileName:any;
   image: string;
-
   image_status: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private avisRest: AvisoProvider,
               private alertCtrl: AlertController,
-              private camera: Camera) {
+              private camera: Camera,
+              private transfer: FileTransfer,
+              public loadingCtrl: LoadingController,
+              public toastCtrl: ToastController) {
 
     this.av = navParams.get("AVISO");
   }
@@ -76,7 +79,7 @@ export class AvisoStep1Page {
     this.navCtrl.push(AvisoStep2Page, {Step1id: this.av});
   }
 
-  getPicture(){
+  /*getPicture(){
     let options: CameraOptions = {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG, //
@@ -106,5 +109,47 @@ export class AvisoStep1Page {
       this.image_status = 'error';
       setTimeout(() => {this.image_status = ''; }, 1000);
     });
+  }*/
+
+  getImage() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      encodingType: this.camera.EncodingType.PNG
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      this.imageURI = imageData;
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  uploadFile() {
+    let loader = this.loadingCtrl.create({
+      content: "Uploading..."
+    });
+    loader.present();
+    const fileTransfer: FileTransferObject = this.transfer.create();
+
+    let options: FileUploadOptions = {
+      fileKey: 'image',
+      fileName: 'ionicfile.jpg',
+      chunkedMode: false,
+      mimeType: "multipart/form-data", //Si gitanada NO, que sera que no, ponemos "multipart/form-data" y hay que quitar dicha gitanada del server, pq asi NO, ya hombre ya
+      headers: {}
+    }
+
+    fileTransfer.upload(this.imageURI, 'http://147.83.7.158:80/aviso/image/' + this.av, options)
+      .then((data) => {
+        console.log(data+" Uploaded Successfully");
+        this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg";
+        loader.dismiss();
+
+      }, (err) => {
+        console.log(err);
+        loader.dismiss();
+      });
   }
 }

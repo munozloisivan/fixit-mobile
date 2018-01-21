@@ -80,8 +80,11 @@ export class AvisoProvider {
   }
 
   uploadImage(id, image) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'multipart/form-data'
+    });
     return new Promise((resolve, reject) => {
-      this.http.post(this.apiUrl + 'image/' + id, image)
+      this.http.post(this.apiUrl + 'image/' + id, image, {headers: headers})
         .map(res => res)
         .subscribe(res => {
           resolve(res);
