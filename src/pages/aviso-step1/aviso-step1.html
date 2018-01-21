@@ -14,17 +14,17 @@
 
 <ion-content padding>
   <ion-item>
-    <p>{{imageURI}}</p>
-    <button ion-button color="secondary" (click)="getImage()">Hacer foto</button>
+    <p>Selecciona una imágen de la galeria.</p>
+    <p>Cuándo estes convencido</p>
+    <p>¡ves al siguiente paso!</p>
+    <button ion-button round color="secondary" (click)="getImage()">Seleccionar foto</button>
   </ion-item>
   <ion-item>
-    <h4>Image Preview</h4>
-    <img src="{{imageFileName}}" *ngIf="imageFileName" alt="Ionic File" width="300" />
+    <img src="http://147.83.7.158/avisos/{{avisoDet?.imagen}}" *ngIf="avisoDet?.imagen" alt="Ionic File" width="300" />
   </ion-item>
-  <ion-item>
+  <!--<ion-item>
     <button ion-button (click)="uploadFile()">Utilizar esta</button>
-  </ion-item>
-
+  </ion-item>-->
   <div padding>
     <button ion-button round type="submit" (click)="updateStep1()">Siguiente Paso</button>
   </div>

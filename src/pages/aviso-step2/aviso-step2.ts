@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {AvisoProvider} from "../../providers/aviso/aviso";
 
 import {CategoriaProvider} from "../../providers/categoria/categoria";
+import {MapaPage} from "../mapa/mapa";
 
 
 /**
@@ -34,7 +35,9 @@ export class AvisoStep2Page {
               public navParams: NavParams,
               private avisRest: AvisoProvider,
               private alertCtrl: AlertController,
-              private categoriaRest: CategoriaProvider) {
+              private categoriaRest: CategoriaProvider,
+              private toastCtrl: ToastController) {
+
     this.avi = navParams.get("Step1id");
   }
 
@@ -52,13 +55,12 @@ export class AvisoStep2Page {
       //console.log('Usuario:' + JSON.stringify(res));
       //console.log('res a pelo: ' + res);
       this.avisoStep2 = res;
-      let alert = this.alertCtrl.create({
+      /*let alert = this.alertCtrl.create({
         title: 'Aviso Step 2' + this.avisoStep2 ,
         subTitle:  'id step2 aviso: ' + this.avi,
         buttons: ['Dismiss']
       });
-      alert.present();
-
+      alert.present();*/
     }, (err) => {
       console.log(err);
     });
@@ -74,6 +76,17 @@ export class AvisoStep2Page {
     //actualizamos el aviso con los datos del step1
     this.avisRest.updateAviso(this.avi, this.avisoStep2).then((result) => {
       console.log('aviso actualizado: '+result);
+      setTimeout(() => {
+        this.okToast('¡Aviso creado correctamente! \n Podrás verlo cuando quieras en la pestaña "Avisos"');
+        this.navCtrl.setRoot(MapaPage);
+        this.navCtrl.popToRoot();
+      }, 2000);
+
+
+
+
+
+
     }, (err) => {
       console.log(err);
     });
@@ -86,6 +99,22 @@ export class AvisoStep2Page {
     }, (err) => {
       console.log(err);
     });
+  }
+
+  okToast(mensaje) {
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 2000,
+      position: 'bottom',
+      cssClass: "toast-success",
+      dismissOnPageChange: false
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
 
 }

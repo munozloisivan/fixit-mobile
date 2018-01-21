@@ -85,7 +85,7 @@ export class AvisoDetailPage {
           lat: 2, // default location
           lng: 41.2132 // default location
         },
-        zoom: 10,
+        zoom: 14,
         tilt: 30
       }
     };

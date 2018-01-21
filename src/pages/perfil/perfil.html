@@ -6,31 +6,27 @@
         Perfil de {{usuario.alias}}
       </ion-col>
       <ion-col>
-        <button ion-button round outline (click)="goEditPerfil()">
+        <button ion-button round (click)="goEditPerfil()">
           <ion-icon name="settings"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button round color="danger" (click)="logOut()">
+          <ion-icon name="log-out"></ion-icon>
         </button>
       </ion-col>
     </ion-card-header>
     <ion-item>
-      <ion-avatar item-start>
-        <!--<img [src]="item.user.avatar">-->
-        <img src="http://147.83.7.158/usuarios/{{usuario.imagen}}"/>
-      </ion-avatar>
-      <h3><b>Alias:</b> {{usuario.alias}}</h3>
-      <p>titulo activo</p>
+        <img src="http://147.83.7.158/usuarios/{{usuario.imagen}}" class="imgR"/>
     </ion-item>
 
     <!--<img [src]="">-->
-
-    <ion-card-content>
-      <p><b>Nombre y apellidos:</b>  {{usuario.nombre}} {{usuario.apellidos}}</p>
-      <p><b>DNI:</b>  {{usuario.dni}}</p>
-      <p><b>Email:</b>  {{usuario.email}}</p>
-      <p><b>Teléfono:</b> {{usuario.telefono}}</p>
-      <p><b>Código postal:</b>  {{usuario.codigoPostal}}</p>
-      <p><b>Puntos:</b> {{usuario.puntos}}</p>
-    </ion-card-content>
-
+    <h3><b>Alias:</b> {{usuario.alias}}</h3>
+    <p><b>Nombre y apellidos:</b>  {{usuario.nombre}} {{usuario.apellidos}}</p>
+    <p><b>DNI:</b>  {{usuario.dni}}</p>
+    <p><b>Email:</b>  {{usuario.email}}</p>
+    <p><b>Teléfono:</b> {{usuario.telefono}}</p>
+    <p><b>Código postal:</b>  {{usuario.codigoPostal}}</p>
     <ion-row>
       <ion-col>
         <button ion-button color="primary" clear small icon-start>

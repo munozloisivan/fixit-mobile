@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import { UsuarioProvider } from "../../providers/usuario/usuario";
 import {EditPerfilPage} from "../edit-perfil/edit-perfil";
+import {WelcomePage} from "../welcome/welcome";
 
 
 
@@ -134,7 +135,34 @@ export class PerfilPage {
     alert.present();
   }
 
-
+  logOut() {
+    let alert = this.alertCtrl.create({
+      title: 'Cerrar sesión',
+      message:  '¿Estas seguro que deseas cerrar sesión?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+            //this.navCtrl.pop();
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            console.log('Confirm clicked');
+            localStorage.clear();
+            setTimeout(() => {
+              this.navCtrl.setRoot(WelcomePage);
+              this.navCtrl.popToRoot();
+            }, 1000);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 
 }
 

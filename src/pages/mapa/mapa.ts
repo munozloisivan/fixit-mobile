@@ -65,7 +65,7 @@ export class MapaPage {
           lat: 43.0741904, // default location
           lng: -89.3809802 // default location
         },
-        zoom: 18,
+        zoom: 15,
         tilt: 30
       }
     };

@@ -26,6 +26,7 @@ export class AvisoStep1Page {
   imageFileName:any;
   image: string;
   image_status: string;
+  avisoDet: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -121,6 +122,7 @@ export class AvisoStep1Page {
 
     this.camera.getPicture(options).then((imageData) => {
       this.imageURI = imageData;
+      this.uploadFile();
     }, (err) => {
       console.log(err);
     });
@@ -146,10 +148,21 @@ export class AvisoStep1Page {
         console.log(data+" Uploaded Successfully");
         this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg";
         loader.dismiss();
-
+        this.getAvDetailsStep1();
       }, (err) => {
         console.log(err);
         loader.dismiss();
       });
+  }
+
+  getAvDetailsStep1() {
+    this.avisRest.showAviso(this.av).then((res) => {
+      //console.log('Usuario:' + JSON.stringify(res));
+      //console.log('res a pelo: ' + res);
+      this.avisoDet = res;
+
+    }, (err) => {
+      console.log(err);
+    });
   }
 }
