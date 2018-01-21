@@ -58,4 +58,18 @@
     <button ion-button round color="danger" class="btn-delete" (click)="deleteUsuario()">Eliminar cuenta</button>
   </div>
 
+  <div>
+    <ion-item>
+      <p>Selecciona una imágen de la galeria.</p>
+      <p>Cuándo estes convencido</p>
+      <p>¡ves al siguiente paso!</p>
+      <button ion-button round color="secondary" (click)="getImagePer()">Seleccionar foto</button>
+    </ion-item>
+    <ion-item>
+      <img src="http://147.83.7.158/usuarios/{{this.kkk?.imagen}}" *ngIf="this.kkk?.imagen" alt="Ionic File" width="300" />
+    </ion-item>
+  </div>
+
+
+
 </ion-content>
