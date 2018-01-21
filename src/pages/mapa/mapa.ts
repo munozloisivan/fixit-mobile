@@ -37,6 +37,8 @@ export class MapaPage {
   lat: any;
   lon: any;
 
+
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private geolocation: Geolocation,
@@ -44,6 +46,8 @@ export class MapaPage {
               private avisoRest: AvisoProvider,
               private usuarioRest: UsuarioProvider,
               private alertCtrl: AlertController) {
+
+
   }
 
   ionViewDidLoad(){
@@ -86,10 +90,6 @@ export class MapaPage {
       .catch(error =>{
         console.log(error);
       });
-
-    //Para los demás markers
-
-
   }
 
   getPosition(): void{
@@ -113,13 +113,19 @@ export class MapaPage {
       });
   }
 
-  addMarker(options){
+  addMarker(options) {
     let markerOptions: MarkerOptions = {
       position: new LatLng(options.position.latitude, options.position.longitude),
       title: options.title,
       icon: options.icon
     };
-    this.map.addMarker(markerOptions);
+    this.map.addMarker(markerOptions)
+      .then(marker => {
+        marker.on(GoogleMapsEvent.MARKER_CLICK)
+          .subscribe(() => {
+            alert('clicked');
+          });
+      });
   }
 
   getPositions() {
@@ -132,7 +138,7 @@ export class MapaPage {
           latitude: aviso.localizacion['lat'],
           longitude: aviso.localizacion['lon'],
         },
-        title: aviso.categoria['tipo'],
+        title:  aviso.categoria['tipo'],
         icon: 'http://147.83.7.158/assets/iconos/' +aviso.categoria.icono
       }))
     }, (err) => {
