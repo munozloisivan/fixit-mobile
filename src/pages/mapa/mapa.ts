@@ -123,7 +123,32 @@ export class MapaPage {
       .then(marker => {
         marker.on(GoogleMapsEvent.MARKER_CLICK)
           .subscribe(() => {
-            alert('clicked');
+            //alert(options.title);  
+
+            let alert = this.alertCtrl.create({
+              title: 'Información del aviso',
+              message:  '¿Estas seguro que deseas apoyar el aviso?',
+              buttons: [
+                {
+                  text: 'Cancelar',
+                  role: 'cancel',
+                  handler: () => {
+                    console.log('Cancel clicked');
+                  }
+                },
+                {
+                  text: 'Aceptar',
+                  handler: () => {
+                    console.log('Confirm clicked');
+                    //Función para apoyar el aviso
+
+
+                  }
+                }
+              ]
+            });
+            alert.present();
+
           });
       });
   }
