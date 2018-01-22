@@ -26,6 +26,8 @@ export class AvisosPage {
   identity: {};
   categoria: string;
 
+  avisos_apoyar: any;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private usuarioRest: UsuarioProvider,
@@ -60,6 +62,14 @@ export class AvisosPage {
     });
   }
 
+  //funcion para recoger los que se pueden apoyar
+  // declarar this.avisos_apoyar = lo que recojas;
+  //para mostrar ya esta hecho <3 <3 <3
+
+
+
+
+
   selectedCreados() {
     this.aviso_type = 'cre';
     console.log('tipo seleccionado:' +this.aviso_type);
@@ -70,8 +80,18 @@ export class AvisosPage {
     console.log('tipo seleccionado:' +this.aviso_type);
   }
 
+  selectedToApoyar() {
+    this.aviso_type = 'xx';
+    console.log('tipo seleccionado:' +this.aviso_type);
+    this.avisoRest.getApo(this.identity['_id']).then((res) => {
+      this.avisos_apoyar = res;
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
   goToDetail(aviso) {
-    this.navCtrl.push(AvisoDetailPage,{avID: aviso});
+    this.navCtrl.push(AvisoDetailPage,{avID: aviso, tp: this.aviso_type});
   }
 
   deleteAvis(avis) {

@@ -4,8 +4,6 @@ import { UsuarioProvider } from "../../providers/usuario/usuario";
 import {EditPerfilPage} from "../edit-perfil/edit-perfil";
 import {WelcomePage} from "../welcome/welcome";
 
-
-
 /**
  * Generated class for the PerfilPage page.
  *

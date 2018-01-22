@@ -12,14 +12,31 @@
 
 </ion-header>
 
+  <ion-content padding style="background-color: white;">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <img src="http://147.83.7.158/avisos/{{aviso.imagen}}"/>
+        </ion-col>
+        <ion-col col-6>
+          <h2 class="text-left">{{ciudad}}</h2>
+          <h3 class="text-left">{{codPostal}}</h3>
+          <p class="text-left"><b>Descripcion:</b> {{aviso.descripcion}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4>
+          <p class="text-left"><b>Seguimiento:</b> {{aviso.seguimiento}}</p>
+        </ion-col>
+        <ion-col col-4>
+          <p class="text-left"><b>Apoyos:</b> {{aviso.apoyos}}</p>
+        </ion-col>
+        <ion-col col-4>
+          <button ion-button round *ngIf="this.kind =='xx'" (click)="Xpo(aviso._id)">Apoyar</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div id="fixer"></div>
+  </ion-content>
 
-<ion-content padding>
-      <img src="http://147.83.7.158/avisos/{{aviso.imagen}}"/>
-      <h2 align="center">{{ciudad}}</h2>
-      <h3 align="center">{{codPostal}} , {{calle}}</h3>
-      <p><b>Descripcion:</b> {{aviso.descripcion}}</p>
-      <p><b>Seguimiento:</b> {{aviso.seguimiento}}</p>
-      <p><b>Apoyos:</b> {{aviso.apoyos}}</p>
-  <div id="fixer"></div>
-</ion-content>
 

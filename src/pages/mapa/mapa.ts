@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
@@ -14,6 +14,7 @@ import { Geolocation } from "@ionic-native/geolocation";
 import {AvisoProvider} from "../../providers/aviso/aviso";
 import {AvisoStep1Page} from "../aviso-step1/aviso-step1";
 import { UsuarioProvider } from "../../providers/usuario/usuario";
+import {AvisoDetailPage} from "../aviso-detail/aviso-detail";
 
 /**
  * Generated class for the MapaPage page.
@@ -37,10 +38,15 @@ export class MapaPage {
   lat: any;
   lon: any;
 
+  avShow : any;
+
+  ciShow: any;
+  codPostalShow: any;
 
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              private viewCtrl: ViewController,
               private geolocation: Geolocation,
               private googleMaps: GoogleMaps,
               private avisoRest: AvisoProvider,
@@ -59,6 +65,16 @@ export class MapaPage {
 
   ionViewWillEnter() {
     this.getPositions();
+  }
+
+  ionViewWillDissapear() {
+
+  }
+
+  ionViewWillLeave() {
+  }
+  ionViewDidDissapear() {
+
   }
 
   loadMap(){
@@ -117,17 +133,29 @@ export class MapaPage {
     let markerOptions: MarkerOptions = {
       position: new LatLng(options.position.latitude, options.position.longitude),
       title: options.title,
-      icon: options.icon
+      icon: options.icon,
+      id: options.id
     };
-    this.map.addMarker(markerOptions)
-      .then(marker => {
+    this.map.addMarker(markerOptions);
+      /*.then(marker => {
         marker.on(GoogleMapsEvent.MARKER_CLICK)
           .subscribe(() => {
-            //alert(options.title);  
+            //alert(options.title);
+
+            this.avisoRest.showAviso(options.id).then((res) => {
+              //console.log('Usuario:' + JSON.stringify(res));
+              //console.log('res a pelo: ' + res);
+              this.avShow = res;
+              this.codPostalShow = this.avShow.datosUbicacion['codPostal'];
+              this.ciShow = this.avShow.datosUbicacion['ciudad'];
+
+            }, (err) => {
+              console.log(err);
+            });
 
             let alert = this.alertCtrl.create({
               title: 'Información del aviso',
-              message:  '¿Estas seguro que deseas apoyar el aviso?',
+              message: 'Si deseas ver los detalles del aviso también estás de acuerdo con el, clica en "Aceptar" y podrás unirte a la causa apoyandolo',
               buttons: [
                 {
                   text: 'Cancelar',
@@ -141,16 +169,14 @@ export class MapaPage {
                   handler: () => {
                     console.log('Confirm clicked');
                     //Función para apoyar el aviso
-
-
+                    this.navCtrl.push(AvisoDetailPage,{avID: options.id});
                   }
                 }
               ]
             });
             alert.present();
 
-          });
-      });
+          });*/
   }
 
   getPositions() {
@@ -164,7 +190,8 @@ export class MapaPage {
           longitude: aviso.localizacion['lon'],
         },
         title:  aviso.categoria['tipo'],
-        icon: 'http://147.83.7.158/assets/iconos/' +aviso.categoria.icono
+        icon: 'http://147.83.7.158/assets/iconos/' +aviso.categoria.icono,
+        id: aviso._id
       }))
     }, (err) => {
       console.log(err);

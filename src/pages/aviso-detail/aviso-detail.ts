@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, LoadingCmp, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import { AvisoProvider } from "../../providers/aviso/aviso";
 import {
   GoogleMaps,
@@ -12,6 +12,8 @@ import {
   LatLng
 } from '@ionic-native/google-maps';
 import { Geolocation } from "@ionic-native/geolocation";
+import {AvisosPage} from "../avisos/avisos";
+import {UsuarioProvider} from "../../providers/usuario/usuario";
 /**
  * Generated class for the AvisoDetailPage page.
  *
@@ -38,12 +40,20 @@ export class AvisoDetailPage {
   site: GoogleMap;
   marker : any;
 
+  kind: any;
+
+  identity: {};
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private avisRest: AvisoProvider,
-              private googleMaps: GoogleMaps) {
+              private googleMaps: GoogleMaps,
+              private toastCtrl: ToastController,
+              private usRest: UsuarioProvider,
+              private loadingCtrl: LoadingController) {
 
     this.avisoIdentifier = navParams.get("avID");
+    this.kind = this.navParams.get("tp");
     this.aviso = {}
 
   }
@@ -51,12 +61,14 @@ export class AvisoDetailPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AvisoDetailPage');
     console.log('aviso id: ' + this.avisoIdentifier);
+    this.identity = JSON.parse(localStorage.getItem('identity'));
     this.getAvDetails(this.avisoIdentifier);
     this.loadMap();
   }
 
   ionViewWillEnter() {
     this.getAvDetails(this.avisoIdentifier);
+    this.loadMap();
   }
 
 
@@ -138,6 +150,58 @@ export class AvisoDetailPage {
       .catch(error =>{
         console.log(error);
       });
+  }
+
+  Xpo(as) {
+    this.usRest.apoVis(as, this.identity['_id']).then((res) => {
+      this.presentLoading();
+      setTimeout(() => {
+        this.okToast('Aviso apoyado correctamente');
+        this.navCtrl.pop();
+      }, 2000);
+    }, (err) => {
+      this.failToast('Error al apoyar, prueba de nuevo');
+      console.log(err);
+    });
+  }
+
+  okToast(mensaje) {
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 1000,
+      position: 'bottom',
+      cssClass: "toast-success",
+      dismissOnPageChange: false
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
+  failToast(mensaje) {
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 2500,
+      position: 'bottom',
+      dismissOnPageChange: true
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Guardando cambios",
+      duration: 1900
+    });
+    loader.present();
   }
 
 }

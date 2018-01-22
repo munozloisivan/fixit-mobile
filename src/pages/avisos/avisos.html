@@ -28,6 +28,10 @@
       <ion-icon name='hand'></ion-icon>
       Apoyados
     </ion-segment-button>
+    <ion-segment-button (click)="selectedToApoyar()">
+      <ion-icon name='person-add'></ion-icon>
+      Apoyar
+    </ion-segment-button>
   </ion-segment>
 
   <!-- AVISOS CREADOS -->
@@ -39,7 +43,7 @@
             <img src="http://147.83.7.158/avisos/{{a.imagen}}"/>
 
             <h2 align="center">{{a.datosUbicacion.ciudad}}</h2>
-            <h3 align="center">{{a.datosUbicacion.codPostal}} , {{a.datosUbicacion.calle}}</h3>
+            <h3 align="center">{{a.datosUbicacion.codPostal}}</h3>
 
             <p><b>Descripcion:</b> {{a.descripcion}}</p>
             <p><b>Seguimiento:</b> {{a.seguimiento}}</p>
@@ -55,7 +59,7 @@
       <ion-item-options side="left">
         <button ion-button color="primary" (click)="goToDetail(a._id)">
           <ion-icon name="search"></ion-icon>
-          Editar
+          Detalles
         </button>
       </ion-item-options>
       </ion-item-sliding>
@@ -71,7 +75,7 @@
           <img src="http://147.83.7.158/avisos/{{a.imagen}}"/>
 
           <h2 align="center">{{a.datosUbicacion.ciudad}}</h2>
-          <h3 align="center">{{a.datosUbicacion.codPostal}} , {{a.datosUbicacion.calle}}</h3>
+          <h3 align="center">{{a.datosUbicacion.codPostal}}</h3>
 
           <p><b>Descripcion:</b> {{a.descripcion}}</p>
           <p><b>Seguimiento:</b> {{a.seguimiento}}</p>
@@ -87,7 +91,35 @@
         <ion-item-options side="left">
           <button ion-button color="primary" (click)="goToDetail(a._id)">
             <ion-icon name="search"></ion-icon>
-            Editar
+            Detalles
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-content>
+
+
+
+  <!-- AVISOS PARA APOYAR -->
+
+  <ion-content *ngIf="aviso_type=='xx'">
+    <ion-list>
+      <ion-item-sliding *ngFor="let a of avisos_apoyar">
+        <ion-item>
+          <img src="http://147.83.7.158/avisos/{{a.imagen}}"/>
+
+          <h2 align="center">{{a.datosUbicacion.ciudad}}</h2>
+          <h3 align="center">{{a.datosUbicacion.codPostal}}</h3>
+
+          <p><b>Descripcion:</b> {{a.descripcion}}</p>
+          <p><b>Seguimiento:</b> {{a.seguimiento}}</p>
+          <p><b>Apoyos:</b> {{a.apoyos}}</p>
+        </ion-item>
+
+        <ion-item-options side="left">
+          <button ion-button color="primary" (click)="goToDetail(a._id)">
+            <ion-icon name="search"></ion-icon>
+            Detalles
           </button>
         </ion-item-options>
       </ion-item-sliding>

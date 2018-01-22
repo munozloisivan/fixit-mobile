@@ -87,5 +87,15 @@ export class UsuarioProvider {
     });
   }
 
+  apoVis(rr, us) {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiUrl + us + '/apoyo/' + rr, null)
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 
 }
